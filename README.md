@@ -48,7 +48,7 @@ Every theorem in the file falls into one of three categories:
 
 - **ALGEBRAIC** -- proved from structure fields by algebraic manipulation (e.g. `abel`, `ring`, `simp`, `linarith`)
 - **CONCRETE** -- proved from definitions with explicit computation (e.g. `rpow_pos_of_pos`, `div_pos`, `mul_lt_mul_of_pos_left`)
-- **STRUCTURAL** -- encodes a mathematical property as structure data, consistent with how [OperatorDerivative](https://github.com/QuijoticResearch/operator-derivative) and [BanachLevyComplete](https://github.com/QuijoticResearch/banach-levy) handle stochastic integration
+- **STRUCTURAL** -- encodes a mathematical property as structure data, consistent with how [OperatorDerivative](https://github.com/QuijoticResearch/operator-derivative-lean) and [BanachLevyComplete](https://github.com/QuijoticResearch/banach-levy-lean) handle stochastic integration
 
 ## Dependency chain
 
@@ -62,8 +62,8 @@ The dependency is *architectural*, not via Lean imports. Each file imports only 
 
 | Repo | What it proves |
 |------|---------------|
-| [operator-derivative](https://github.com/QuijoticResearch/operator-derivative) | D = delta* in Hilbert space, Leibniz rule iff chain rule, Ito correction |
-| [banach-levy](https://github.com/QuijoticResearch/banach-levy) | D_L = delta_L* in Banach space, Leibniz defect = jump remainder |
+| [operator-derivative](https://github.com/QuijoticResearch/operator-derivative-lean) | D = delta* in Hilbert space, Leibniz rule iff chain rule, Ito correction |
+| [banach-levy](https://github.com/QuijoticResearch/banach-levy-lean) | D_L = delta_L* in Banach space, Leibniz defect = jump remainder |
 | **volterra-levy** (this repo) | Kernel-weighted defect, VRNC, hedging decomposition |
 
 ## Building
