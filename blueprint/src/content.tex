@@ -1,29 +1,32 @@
 % Blueprint for the Volterra-Lévy formalization
 % Maps VolterraLevy.lean (928 lines, zero sorry, zero axioms)
+%
+% Paper: R. Fontes, "The Boundary of Hedgeability: Pricing and Hedging
+% in Volterra-Lévy Markets," Quijotic Research, 2026.
 
 \chapter{Volterra Kernel and Combined Energy Space}
 
-This layer defines the causal kernel $K$, the combined energy space $H_W \times \tilde{H}_J$, the combined divergence $\delta_{VL}$, and proves the splitting $D_{VL} = (D_W, \tilde{D}_J)$.
+This layer defines the causal kernel $K$, the combined energy space $\mathcal{H}_{VL} = H_W \times \tilde{H}_J$, the combined divergence $\delta_{VL}$, and proves the splitting $D_{VL} = (D_W, \tilde{D}_J)$. The splitting is the key structural fact: $D$ inherits its decomposition from the energy space, not from any Gaussian assumption~[1].
 
 \section{The Volterra Kernel}
 
 \begin{defn}[Volterra kernel]\label{def:VolterraKernel}
 \lean{VolterraKernel}
 \leanok
-A causal kernel $K : [0,T]^2 \to \mathbb{R}$ with $K(t,s) = 0$ for $s > t$, terminal time $T > 0$, and $L^2$-integrability: $\int_0^t K(t,s)^2\,ds < \infty$ for all $t \in [0,T]$~[1].
+A causal kernel $K : [0,T]^2 \to \mathbb{R}$ with $K(t,s) = 0$ for $s > t$, terminal time $T > 0$, and $L^2$-integrability: $\int_0^t K(t,s)^2\,ds < \infty$ for all $t \in [0,T]$. The Volterra--L\'evy process is $V_t = \int_0^t K(t,s)\,dL_s$, where $L$ is a L\'evy driver with both continuous and jump components~[1, Definition~3.1].
 \end{defn}
 
 \begin{defn}[Fractional kernel]\label{def:fractionalKernel}
 \lean{CombinedEnergySpace.fractionalKernel}
 \leanok
-$K_H(t,s) = (t-s)^{H-1/2}$ for $s < t$, zero otherwise. The rough Volterra kernel with Hurst parameter $H$.
+$K_H(t,s) = (t-s)^{H-1/2}$ for $s < t$, zero otherwise. The fractional kernel with Hurst parameter $H$ governs rough volatility: $H < 1/2$ gives rougher-than-Brownian paths, $H = 1/2$ recovers the Markov (classical) case~[1, Example~2.2].
 \end{defn}
 
 \begin{theorem}[Fractional kernel is causal]\label{thm:fractionalKernel_causal}
 \lean{CombinedEnergySpace.fractionalKernel_causal}
 \leanok
 \uses{def:fractionalKernel}
-$K_H(t,s) = 0$ for $s > t$.
+$K_H(t,s) = 0$ for $s > t$. Causality: the kernel looks backward only.
 \end{theorem}
 \begin{proof}\leanok By definition: the \texttt{if} branch is false when $s \geq t$.\end{proof}
 
@@ -40,21 +43,21 @@ $K_H(t,s) \geq 0$ for $H \geq 1/2$ and $s < t$.
 \begin{defn}[Combined energy space]\label{def:CombinedEnergySpace}
 \lean{CombinedEnergySpace}
 \leanok
-The product space $H_{VL} = H_W \times \tilde{H}_J$ where $H_W$ is Hilbert (continuous integrands) and $\tilde{H}_J$ is Banach (jump integrands). Carries divergence operators $\delta_W : H_W \to L^p(\Omega)$ and $\tilde{\delta}_J : \tilde{H}_J \to L^p(\Omega)$, centering conditions, expectation linearity, H\"older and duality pairings.
+The product space $\mathcal{H}_{VL} = H_W \times \tilde{H}_J$ where $H_W = L^2([0,T] \times \Omega, \mathcal{P}, \sigma^2 ds \otimes d\mathbb{P})$ is Hilbert (continuous integrands, with divergence $\delta_W(u) = \sigma \int u_t\,dW_t$) and $\tilde{H}_J = L^p([0,T] \times \mathbb{R} \times \Omega, dt \otimes \nu(dz) \otimes d\mathbb{P})$ is Banach (jump integrands, with divergence $\tilde{\delta}_J(h) = \int\!\!\int h(t,z)\,\tilde{N}(dt,dz)$). Carries centering conditions, expectation linearity, H\"older and duality pairings~[1, Definition~4.1].
 \end{defn}
 
 \begin{defn}[Combined divergence]\label{def:delta_VL}
 \lean{CombinedEnergySpace.δ_VL}
 \leanok
 \uses{def:CombinedEnergySpace}
-$\delta_{VL}(u,h) := \delta_W(u) + \tilde{\delta}_J(h)$. The combined stochastic integral is a \emph{definition}, not an axiom.
+$\delta_{VL}(u,h) := \delta_W(u) + \tilde{\delta}_J(h)$. The combined stochastic integral acts componentwise on $H_W \times \tilde{H}_J$. This is a \emph{definition}, not an axiom.
 \end{defn}
 
 \begin{theorem}[Combined divergence is centered]\label{thm:delta_VL_centered}
 \lean{CombinedEnergySpace.δ_VL_centered}
 \leanok
 \uses{def:delta_VL}
-$\mathbb{E}[\delta_{VL}(u,h)] = 0$. ALGEBRAIC: from \texttt{expect\_add}, \texttt{centered\_W}, \texttt{centered\_J}.
+$\mathbb{E}[\delta_{VL}(u,h)] = 0$. Both stochastic integrals are centered ($\mathbb{E}[\delta_W(u)] = 0$, $\mathbb{E}[\tilde{\delta}_J(h)] = 0$), and expectation distributes over addition. ALGEBRAIC: from \texttt{expect\_add}, \texttt{centered\_W}, \texttt{centered\_J}.
 \end{theorem}
 \begin{proof}\leanok \texttt{simp [δ\_VL, expect\_add, centered\_W, centered\_J, add\_zero]}.\end{proof}
 
@@ -62,28 +65,28 @@ $\mathbb{E}[\delta_{VL}(u,h)] = 0$. ALGEBRAIC: from \texttt{expect\_add}, \textt
 \lean{CombinedEnergySpace.D_W}
 \leanok
 \uses{def:CombinedEnergySpace}
-$D_W F$ is defined by $\langle D_W F, u \rangle := \mathbb{E}[F \cdot \delta_W(u)]$.
+$D_W F$ is defined by $\langle D_W F, u \rangle := \mathbb{E}[F \cdot \delta_W(u)]$, the $D = \delta^*$ construction restricted to the Hilbert component $H_W$~[1, Definition~4.2]. This is the continuous Malliavin-type derivative.
 \end{defn}
 
 \begin{defn}[Jump operator derivative]\label{def:D_J}
 \lean{CombinedEnergySpace.D_J}
 \leanok
 \uses{def:CombinedEnergySpace}
-$\tilde{D}_J F$ is defined by $\langle \tilde{D}_J F, h \rangle := \mathbb{E}[F \cdot \tilde{\delta}_J(h)]$.
+$\tilde{D}_J F$ is defined by $\langle \tilde{D}_J F, h \rangle := \mathbb{E}[F \cdot \tilde{\delta}_J(h)]$, the $D = \delta^*$ construction restricted to the Banach component $\tilde{H}_J$~[1, Definition~4.2]. This is the jump operator derivative (a Banach-space analogue of the Picard difference operator).
 \end{defn}
 
 \begin{theorem}[$D_{VL}$ splitting (Proposition 3.4)]\label{thm:D_VL_split}
 \lean{CombinedEnergySpace.D_VL_split}
 \leanok
 \uses{def:D_W, def:D_J, def:delta_VL}
-$\langle D_W F, u \rangle + \langle \tilde{D}_J F, h \rangle = \mathbb{E}[F \cdot \delta_{VL}(u,h)]$. ALGEBRAIC: from \texttt{mk\_dual} specs and \texttt{holder\_add\_right}.
+$\langle D_W F, u \rangle + \langle \tilde{D}_J F, h \rangle = \mathbb{E}[F \cdot \delta_{VL}(u,h)]$. The combined operator derivative splits automatically into continuous and jump components, inherited from the energy space decomposition. This is a \emph{theorem}, not an assumption---the splitting is forced by the linearity of the H\"older pairing~[1, Proposition~3.4]. ALGEBRAIC: from \texttt{mk\_dual} specs and \texttt{holder\_add\_right}.
 \end{theorem}
 \begin{proof}\leanok Unfold $D_W$, $D_J$, $\delta_{VL}$ via \texttt{simp only}, then apply \texttt{holder\_add\_right}.\end{proof}
 
 
 \chapter{The Kernel-Weighted Defect}
 
-The Volterra-L\'evy It\^o decomposition, the $\nu$-singular/$\nu$-regular splitting, the defect vanishing characterization, and $\nu$-singularity persistence.
+The Volterra--L\'evy It\^o decomposition, the $\nu$-singular/$\nu$-regular splitting, the defect vanishing characterization, and $\nu$-singularity persistence. The central object is the kernel-weighted Leibniz defect $\Gamma_V^f = \tilde{\delta}_J(g_f^K)$, which equals the structurally unhedgeable component of risk~[1, Theorem~5.2].
 
 \section{Process, Payoff, and Bridge}
 
@@ -91,37 +94,37 @@ The Volterra-L\'evy It\^o decomposition, the $\nu$-singular/$\nu$-regular splitt
 \lean{CombinedEnergySpace.VolterraProcessData}
 \leanok
 \uses{def:CombinedEnergySpace}
-Data for a Volterra process: $V_T = \delta_W(\text{kernel\_cont}) + \tilde{\delta}_J(\text{kernel\_jump})$.
+Data for a Volterra process: $V_T = \delta_W(\text{kernel\_cont}) + \tilde{\delta}_J(\text{kernel\_jump})$, decomposing the terminal value into its continuous and jump stochastic integrals against the kernel $K(T,\cdot)$~[1, Definition~2.1, eq.~(2.2)].
 \end{defn}
 
 \begin{defn}[Smooth payoff]\label{def:SmoothPayoff}
 \lean{CombinedEnergySpace.SmoothPayoff}
 \leanok
 \uses{def:CombinedEnergySpace}
-A smooth function $f$ applied to $V_T$. Carries $f$, $f'$, the Taylor remainder $g_f^K(v,z) = f(v+Kz) - f(v) - f'(v)Kz$, with $g_f^K(v,0) = 0$ and a uniform quadratic bound $|g_f^K(v,z)| \leq C_{\mathrm{defect}} \cdot z^2$.
+A smooth function $f \in C_b^3(\mathbb{R})$ applied to $V_T$. Carries $f$, $f'$, the Taylor remainder $g_f^K(v,z) = f(v+Kz) - f(v) - f'(v)Kz$ (the kernel-weighted defect integrand), with $g_f^K(v,0) = 0$ and a uniform quadratic bound $|g_f^K(v,z)| \leq C_{\mathrm{defect}} \cdot z^2$ where $C_{\mathrm{defect}} = \tfrac{1}{2}\|f''\|_\infty K(T,t)^2$~[1, Theorem~3.1, eq.~(3.7)].
 \end{defn}
 
 \begin{defn}[Hilbert-jump bridge]\label{def:HilbertJumpBridge}
 \lean{CombinedEnergySpace.HilbertJumpBridge}
 \leanok
 \uses{def:VolterraProcessData, def:SmoothPayoff}
-Connects the Hilbert It\^o formula (OperatorDerivative.lean) and the Banach defect theory (BanachLevyComplete.lean) on $H_W \times \tilde{H}_J$. Carries the ONE stochastic analysis input (\texttt{levy\_ito}: the L\'evy-It\^o formula from Applebaum~[2], Theorem~4.4.7), the Taylor split, the defect coherence, and the payoff-process connection.
+Connects the Hilbert It\^o formula (from OperatorDerivative.lean~[3]) and the Banach defect theory (from BanachLevyComplete.lean~[4]) on the combined space $H_W \times \tilde{H}_J$. The bridge carries exactly \textbf{one} stochastic analysis input: the L\'evy--It\^o formula (\texttt{levy\_ito}, from Applebaum~[2], Theorem~4.4.7) applied to the semimartingale $V_T(t) = \int_0^t K(T,s)\,dL_s$. It also carries the Taylor split (algebraic), the defect coherence (connecting the abstract Banach element to the pointwise formula), and the payoff-process connection. The dependency chain is: process $\to$ payoff $\to$ bridge $\to$ decomposition theorem.
 \end{defn}
 
-\section{The Volterra-L\'evy It\^o Decomposition}
+\section{The Volterra--L\'evy It\^o Decomposition}
 
 \begin{defn}[Kernel-weighted defect]\label{def:kernel_weighted_defect}
 \lean{CombinedEnergySpace.kernel_weighted_defect}
 \leanok
 \uses{def:HilbertJumpBridge}
-$\Gamma_V^f := \tilde{\delta}_J(g_f^K)$, the compensated Poisson integral of the defect integrand.
+$\Gamma_V^f := \tilde{\delta}_J(g_f^K)$, the compensated Poisson integral of the defect integrand. This is the kernel-weighted Leibniz defect---the precise content invisible to Malliavin calculus, and the structurally unhedgeable component of risk in Volterra--L\'evy markets~[1, Theorem~5.2, eq.~(5.10)].
 \end{defn}
 
 \begin{theorem}[Defect is Taylor remainder]\label{thm:defect_is_taylor_remainder}
 \lean{CombinedEnergySpace.defect_is_taylor_remainder}
 \leanok
 \uses{def:HilbertJumpBridge, def:SmoothPayoff}
-$g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z$. ALGEBRAIC: unfolds \texttt{defect\_coherence}.
+$g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z$. The defect integrand IS the Taylor remainder of $f$ composed with the kernel---connecting the abstract $\tilde{H}_J$ element to the paper's pointwise formula~[1, eq.~(3.7)]. ALGEBRAIC: unfolds \texttt{defect\_coherence}.
 \end{theorem}
 \begin{proof}\leanok Immediate from the bridge's \texttt{defect\_coherence} field.\end{proof}
 
@@ -129,18 +132,18 @@ $g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z$. ALGEBRAIC: unfol
 \lean{CombinedEnergySpace.ito_composition}
 \leanok
 \uses{def:HilbertJumpBridge, def:kernel_weighted_defect}
-$f(V_T) = f(0) + \delta_W(f' \cdot K) + \tilde{\delta}_J(\text{linear}) + \Gamma_V^f + \text{correction}$. ALGEBRAIC: from \texttt{levy\_ito}, \texttt{taylor\_split}, and \texttt{map\_add}.
+$f(V_T) = f(0) + \delta_W(f' \cdot K) + \tilde{\delta}_J(\text{linear}) + \Gamma_V^f + \text{correction}$. This is the five-term identity obtained by composing the L\'evy--It\^o formula with the Taylor split of the jump integrand. ALGEBRAIC: from \texttt{levy\_ito}, \texttt{taylor\_split}, and \texttt{map\_add} (linearity of $\tilde{\delta}_J$).
 \end{lemma}
 \begin{proof}\leanok Rewrite with \texttt{levy\_ito}, substitute \texttt{taylor\_split}, apply \texttt{map\_add}, close with \texttt{abel}.\end{proof}
 
-\begin{theorem}[Volterra-L\'evy It\^o decomposition]\label{thm:volterra_levy_ito_decomposition}
+\begin{theorem}[Volterra--L\'evy It\^o decomposition]\label{thm:volterra_levy_ito_decomposition}
 \lean{CombinedEnergySpace.volterra_levy_ito_decomposition}
 \leanok
 \uses{lem:ito_composition}
 \[
-f(V_T) - f(0) = \delta_W(f' \cdot K) + \tilde{\delta}_J(\text{linear}) + \tilde{\delta}_J(g_f^K) + \text{correction}
+f(V_T) - f(0) = \underbrace{\delta_W(\alpha^f)}_{\text{continuous martingale}} + \underbrace{\tilde{\delta}_J(f' K z)}_{\nu\text{-singular}} + \underbrace{\tilde{\delta}_J(g_f^K)}_{\nu\text{-regular (defect)}} + \underbrace{A_T^f}_{\text{drift}}
 \]
-This is a \textbf{theorem}, not a structure field. ALGEBRAIC: from \texttt{ito\_composition} via \texttt{abel}.
+This is the paper's Theorem~3.1~[1]. It is a \textbf{theorem} (derived from \texttt{ito\_composition} by algebraic rearrangement), not a structure field. The decomposition composes the Hilbert It\^o formula (OperatorDerivative.lean~[3]) and the Banach defect theory (BanachLevyComplete.lean~[4]) on the combined space $H_W \times \tilde{H}_J$.
 \end{theorem}
 \begin{proof}\leanok Apply \texttt{ito\_composition}, rearrange with \texttt{abel}.\end{proof}
 
@@ -148,7 +151,7 @@ This is a \textbf{theorem}, not a structure field. ALGEBRAIC: from \texttt{ito\_
 \lean{CombinedEnergySpace.two_regime_decomposition}
 \leanok
 \uses{def:kernel_weighted_defect, def:HilbertJumpBridge}
-$\tilde{\delta}_J(h_f^K) = \tilde{\delta}_J(\text{linear}) + \Gamma_V^f$. ALGEBRAIC: from \texttt{taylor\_split} and \texttt{map\_add}.
+$\tilde{\delta}_J(h_f^K) = \tilde{\delta}_J(\text{linear}) + \Gamma_V^f$. The compensated Poisson integral splits into a $\nu$-singular part (linear in jump size $z$, with infinite $\tilde{H}_J$-norm) and a $\nu$-regular part (the defect $\Gamma_V^f$, with finite $\tilde{H}_J$-norm). This is the content of~[1, Theorem~5.2(c)]. ALGEBRAIC: from \texttt{taylor\_split} and \texttt{map\_add}.
 \end{theorem}
 \begin{proof}\leanok Rewrite with \texttt{taylor\_split}, apply \texttt{map\_add}.\end{proof}
 
@@ -157,14 +160,14 @@ $\tilde{\delta}_J(h_f^K) = \tilde{\delta}_J(\text{linear}) + \Gamma_V^f$. ALGEBR
 \begin{defn}[$\nu$-moment structure]\label{def:NuMomentStructure}
 \lean{NuMomentStructure}
 \leanok
-Captures the integrability dichotomy for stable-type measures with index $\gamma \in (1,2)$: $\int |z|^p\,\nu(dz) = \infty$ for $p < \gamma$, $\int |z|^{2p}\,\nu(dz) < \infty$ for $2p > \gamma$.
+Captures the integrability dichotomy for stable-type L\'evy measures with index $\gamma \in (1,2)$~[1, Assumption~L1]: $\int |z|^p\,\nu(dz) = \infty$ for $p < \gamma$ ($\nu$-singular regime) and $\int |z|^{2p}\,\nu(dz) < \infty$ for $2p > \gamma$ ($\nu$-regular regime). The working exponent $p \in (1,\gamma)$ and the small-jump constant $c_\gamma$ from the stable density bound $\nu(dz) \sim c_\gamma |z|^{-(1+\gamma)}\,dz$.
 \end{defn}
 
 \begin{theorem}[2p-th moment positivity]\label{thm:small_jump_2p_moment_pos}
 \lean{NuMomentStructure.small_jump_2p_moment_pos}
 \leanok
 \uses{def:NuMomentStructure}
-$0 < 2c_\gamma / (2p - \gamma)$. CONCRETE: from \texttt{div\_pos}.
+$0 < 2c_\gamma / (2p - \gamma)$. The small-jump moment is positive and finite in the $\nu$-regular regime. CONCRETE: from \texttt{div\_pos}.
 \end{theorem}
 \begin{proof}\leanok Rewrite with \texttt{small\_jump\_2p\_moment\_eq}, apply \texttt{div\_pos}.\end{proof}
 
@@ -172,7 +175,7 @@ $0 < 2c_\gamma / (2p - \gamma)$. CONCRETE: from \texttt{div\_pos}.
 \lean{NuMomentStructure.p_moment_divergence_exponent}
 \leanok
 \uses{def:NuMomentStructure}
-$p - \gamma < 0$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_diverges} in BanachLevyComplete.lean~[4].
+$p - \gamma < 0$. The divergence exponent is negative, encoding $\int |z|^p\,\nu(dz) = \infty$. Matches \texttt{stable\_small\_jump\_moment\_diverges} in BanachLevyComplete.lean~[4]. CONCRETE.
 \end{theorem}
 \begin{proof}\leanok \texttt{linarith [hp\_upper]}.\end{proof}
 
@@ -180,7 +183,7 @@ $p - \gamma < 0$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_diverge
 \lean{NuMomentStructure.two_p_gt_γ}
 \leanok
 \uses{def:NuMomentStructure}
-$2p > \gamma$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_finite} in BanachLevyComplete.lean~[4].
+$2p > \gamma$. The convergence exponent exceeds the stable index, encoding $\int |z|^{2p}\,\nu(dz) < \infty$. Matches \texttt{stable\_small\_jump\_moment\_finite} in BanachLevyComplete.lean~[4]. CONCRETE: from $p > 1$ and $\gamma < 2$.
 \end{theorem}
 \begin{proof}\leanok \texttt{linarith [hp\_lower, hγ\_upper]}.\end{proof}
 
@@ -188,21 +191,21 @@ $2p > \gamma$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_finite} in
 \lean{CombinedEnergySpace.defect_norm_from_uniform_bound}
 \leanok
 \uses{def:SmoothPayoff, def:NuMomentStructure}
-$0 < C_{\mathrm{defect}}^p \cdot \int |z|^{2p}\,\nu(dz)$. CONCRETE: connects the uniform Taylor bound to the scaling law.
+$0 < C_{\mathrm{defect}}^p \cdot \int_{|z| \leq 1} |z|^{2p}\,\nu(dz)$. Connects the uniform Taylor bound to the scaling law: the product of the defect constant and the small-jump moment is positive, establishing the leading term in the scaling estimate~[1, Theorem~6.1, eq.~(6.2)]. CONCRETE.
 \end{theorem}
 \begin{proof}\leanok \texttt{mul\_pos} with \texttt{rpow\_pos\_of\_pos} and \texttt{small\_jump\_2p\_moment\_pos}.\end{proof}
 
 \begin{defn}[$\nu$-singularity data]\label{def:NuSingularityData}
 \lean{NuSingularityData}
 \leanok
-The kernel norm $\int_0^T |K(T,s)|^p\,ds > 0$ and truncated $z$-moments $\int_{|z| \leq R} |z|^p\,\nu(dz)$ which are unbounded as $R \to \infty$.
+The kernel norm $\int_0^T |K(T,s)|^p\,ds > 0$ (finite by the kernel regularity assumption~[1, Assumption~K1]) and truncated $z$-moments $\int_{|z| \leq R} |z|^p\,\nu(dz)$ which are unbounded as $R \to \infty$ (since $p < \gamma$ and $\nu$ is $\gamma$-stable near zero).
 \end{defn}
 
 \begin{theorem}[$\nu$-singularity persists (Proposition 6.x)]\label{thm:nu_singularity_persists}
 \lean{CombinedEnergySpace.nu_singularity_persists}
 \leanok
 \uses{def:NuMomentStructure, def:NuSingularityData}
-$\forall M,\;\exists R,\;\|K\|_p \cdot \int_{|z| \leq R} |z|^p\,\nu(dz) > M$. The product norm of $K(T,\cdot)z$ exceeds any bound, hence $V_T \notin \mathrm{im}(\tilde{\delta}_J)$. CONCRETE: from \texttt{mul\_lt\_mul\_of\_pos\_left} and \texttt{field\_simp}.
+$\forall M,\;\exists R,\;\|K\|_p \cdot \int_{|z| \leq R} |z|^p\,\nu(dz) > M$. The $\tilde{H}_J$-norm of the linear integrand $K(T,\cdot)z$ is infinite: the product of a positive kernel norm and an unbounded $z$-moment exceeds any bound. Hence $V_T \notin \mathrm{im}(\tilde{\delta}_J)$: the kernel cannot regularize the jump-size singularity, because $K$ acts on time while the singularity is in $z$~[1, Proposition~6.1]. CONCRETE: from \texttt{mul\_lt\_mul\_of\_pos\_left} and \texttt{field\_simp}.
 \end{theorem}
 \begin{proof}\leanok Divide $M$ by \texttt{kernel\_p\_norm}, use \texttt{truncated\_z\_moment\_unbounded}, multiply back.\end{proof}
 
@@ -212,21 +215,21 @@ $\forall M,\;\exists R,\;\|K\|_p \cdot \int_{|z| \leq R} |z|^p\,\nu(dz) > M$. Th
 \lean{CombinedEnergySpace.JumpPresence}
 \leanok
 \uses{def:HilbertJumpBridge}
-Whether jumps are present. When \texttt{has\_jumps = false}, the defect integrand is zero (justified by \texttt{defect\_at\_zero}: the Taylor remainder vanishes at $z = 0$).
+Whether the L\'evy measure is nontrivial. When $\nu = 0$ (no jumps), all jump sizes are $z = 0$, so by \texttt{defect\_at\_zero} (the Taylor remainder at zero displacement is zero), the defect integrand vanishes in $\tilde{H}_J$. This connects to the fundamental dichotomy: $D$ satisfies the Leibniz rule if and only if the driver has no jumps~[4, Theorem~B].
 \end{defn}
 
 \begin{theorem}[Defect vanishes without jumps (Proposition 7.x)]\label{thm:defect_vanishes_without_jumps}
 \lean{CombinedEnergySpace.defect_vanishes_without_jumps_volterra}
 \leanok
 \uses{def:JumpPresence, def:kernel_weighted_defect}
-When $\nu = 0$: $\Gamma_V^f = 0$. ALGEBRAIC: from \texttt{no\_jumps\_zero\_defect} and \texttt{map\_zero}.
+When $\nu = 0$: $\Gamma_V^f = 0$. The kernel-weighted defect vanishes, recovering perfect hedging in pure rough volatility models (El Euch--Rosenbaum 2019). The defect IS the non-Gaussian content: it vanishes precisely when the driver is Gaussian~[1, Proposition~7.1]. ALGEBRAIC: from \texttt{no\_jumps\_zero\_defect} and \texttt{map\_zero}.
 \end{theorem}
 \begin{proof}\leanok Rewrite with zero defect integrand, apply \texttt{map\_zero}.\end{proof}
 
 
 \chapter{Pricing and Hedging}
 
-Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the scaling law for fractional kernels.
+Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the scaling law for fractional kernels. The central message: the kernel $K$ enters the pricing structure itself---continuous and jump risk premia cannot be chosen independently~[1, Theorem~5.1].
 
 \section{Bracket Invariance}
 
@@ -234,22 +237,22 @@ Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the s
 \lean{BracketData}
 \leanok
 \uses{def:VolterraKernel}
-Carries $\sigma_L$, the kernel-squared integral $\int_0^t K(T,s)^2\,ds$, and the bracket function with $\langle V^c \rangle_t = \sigma_L^2 \cdot \int_0^t K(T,s)^2\,ds$.
+The continuous bracket of the partial process: $\langle V_T^c \rangle_t = \sigma_L^2 \int_0^t K(T,s)^2\,ds$. Carries $\sigma_L$, the kernel-squared integral, and the bracket function. The key property: the bracket is deterministic (depends only on $K$ and $\sigma_L$, not on $\omega$)~[1, Theorem~5.3(a)].
 \end{defn}
 
 \begin{theorem}[Bracket is deterministic]\label{thm:bracket_deterministic}
 \lean{CombinedEnergySpace.bracket_deterministic}
 \leanok
 \uses{def:BracketData}
-$\exists c,\;\langle V^c \rangle_t = c$. ALGEBRAIC: the witness is $\sigma_L^2 \cdot \int K^2\,ds$ from \texttt{bracket\_eq}.
+$\exists c,\;\langle V_T^c \rangle_t = c$. The bracket is a real number at each $t$, not a random variable. The witness is $\sigma_L^2 \cdot \int_0^t K(T,s)^2\,ds$ from \texttt{bracket\_eq}. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok Witness from \texttt{bracket\_eq}.\end{proof}
 
-\begin{theorem}[Bracket measure invariance (Theorem 5.x)]\label{thm:bracket_measure_invariant}
+\begin{theorem}[Bracket measure invariance (Theorem 5.3)]\label{thm:bracket_measure_invariant}
 \lean{CombinedEnergySpace.bracket_measure_invariant}
 \leanok
 \uses{def:BracketData}
-$\langle V^c \rangle_t = \sigma_L^2 \cdot \int_0^t K(T,s)^2\,ds$. The RHS has no $\omega$-dependence: deterministic, hence identical under $P$ and $Q$.
+$\langle V_T^c \rangle_t = \sigma_L^2 \cdot \int_0^t K(T,s)^2\,ds$. The RHS has no $\omega$-dependence: deterministic, hence identical under $\mathbb{P}$ and $\mathbb{Q}$. Neither $\sigma_L$ nor $K$ changes under an absolutely continuous measure change~[1, Theorem~5.3]. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok Immediate from \texttt{bracket\_eq}.\end{proof}
 
@@ -257,7 +260,7 @@ $\langle V^c \rangle_t = \sigma_L^2 \cdot \int_0^t K(T,s)^2\,ds$. The RHS has no
 \lean{CombinedEnergySpace.roughness_invariant}
 \leanok
 \uses{thm:bracket_measure_invariant}
-Both time points $t_1, t_2$ have the deterministic formula, so the log-log slope (and hence $H$) is the same under any equivalent measure.
+Both time points $t_1, t_2$ have the deterministic formula. The Hurst parameter $H$---extracted from the log-log slope of $\langle V_T^c \rangle_t$---is therefore the same under any equivalent measure. The roughness estimated from historical data is the roughness that governs risk-neutral dynamics. This is a structural feature of the energy space, not a modelling assumption~[1, Corollary~5.4]. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok Two applications of \texttt{bracket\_eq}.\end{proof}
 
@@ -266,28 +269,28 @@ Both time points $t_1, t_2$ have the deterministic formula, so the log-log slope
 \begin{defn}[Girsanov data]\label{def:GirsanovData}
 \lean{GirsanovData}
 \leanok
-Continuous and jump market prices of risk $\theta^W$, $\theta^J$, diffusion coefficient $\sigma_L$, and jump drift $\Phi^J$.
+The market prices of risk: continuous $\theta^W(t)$ (Girsanov drift removal) and jump $\theta^J(t,z)$ (L\'evy--Girsanov exponential tilting~[2, Theorem~9.12]), diffusion coefficient $\sigma_L$, and jump drift contribution $\Phi^J(t) = \int z(e^{\theta^J(t,z)} - 1)\,\nu(dz)$.
 \end{defn}
 
 \begin{defn}[Effective drift rate]\label{def:effectiveDriftRate}
 \lean{CombinedEnergySpace.effectiveDriftRate}
 \leanok
 \uses{def:GirsanovData}
-$\Psi := -\sigma_L \theta^W + \Phi^J$. Defined, not assumed.
+$\Psi_t := -\sigma_L \theta_t^W + \Phi_t^J$. The effective drift rate aggregates the Brownian and jump risk premia into a single quantity. The kernel $K$ couples $\Psi$ across time via a Volterra integral equation~[1, eq.~(5.3)]. Defined, not assumed.
 \end{defn}
 
 \begin{defn}[VRNC data]\label{def:VRNCData}
 \lean{VRNCData}
 \leanok
 \uses{def:GirsanovData, def:VolterraKernel}
-Extends Girsanov data with kernel, drift rate $\mu$, risk-free rate $r$, L\'evy exposure $\lambda$, memory loading $\beta$, and drift functional $B_t^\theta = \int_0^t K(t,s)\Psi(s)\,ds$.
+Extends Girsanov data with the kernel, drift rate $\mu_t$, risk-free rate $r$, direct L\'evy exposure $\lambda_t$, memory factor loading $\beta_t$, and the drift functional $B_t^\theta = \int_0^t K(t,s)\Psi(s)\,ds$. The VRNC requires solving a Volterra integral equation: $\mu_t - r = -[\lambda_t + \beta_t K(t,t)]\Psi_t - \beta_t \int_0^t \partial_t K(t,s)\Psi_s\,ds$~[1, Theorem~5.1].
 \end{defn}
 
 \begin{theorem}[$\Psi$ formula]\label{thm:VRNC_determines_Psi}
 \lean{CombinedEnergySpace.VRNC_determines_Psi}
 \leanok
 \uses{def:effectiveDriftRate}
-$\Psi_t = -\sigma_L \theta^W_t + \Phi^J_t$. ALGEBRAIC: unfolds the definition.
+$\Psi_t = -\sigma_L \theta_t^W + \Phi_t^J$. ALGEBRAIC: unfolds the definition.
 \end{theorem}
 \begin{proof}\leanok \texttt{rfl}.\end{proof}
 
@@ -295,7 +298,7 @@ $\Psi_t = -\sigma_L \theta^W_t + \Phi^J_t$. ALGEBRAIC: unfolds the definition.
 \lean{CombinedEnergySpace.VRNC_continuous_recovery}
 \leanok
 \uses{def:effectiveDriftRate}
-When $\nu = 0$: $\Psi = -\sigma_L \theta^W$. ALGEBRAIC: substitutes $\Phi^J = 0$.
+When $\nu = 0$: $\Psi = -\sigma_L \theta^W$. The jump drift vanishes and the constraint reduces to the continuous Volterra risk-neutral condition of~[1, Corollary~5.2]. ALGEBRAIC: substitutes $\Phi^J = 0$.
 \end{theorem}
 \begin{proof}\leanok \texttt{simp [effectiveDriftRate, hno\_jumps]}.\end{proof}
 
@@ -303,7 +306,7 @@ When $\nu = 0$: $\Psi = -\sigma_L \theta^W$. ALGEBRAIC: substitutes $\Phi^J = 0$
 \lean{CombinedEnergySpace.continuous_from_jump_choice}
 \leanok
 \uses{def:effectiveDriftRate}
-$\theta^W_t = (\Phi^J_t - \Psi) / \sigma_L$. ALGEBRAIC: pure algebra (\texttt{field\_simp} + \texttt{linarith}).
+$\theta^W_t = (\Phi^J_t - \Psi) / \sigma_L$. Given a choice of jump pricing ($\Phi^J$), the continuous market price of risk is determined. This is the measure-selection degree of freedom: one equation in two unknowns~[1, Proposition~5.5]. ALGEBRAIC: \texttt{field\_simp} + \texttt{linarith}.
 \end{theorem}
 \begin{proof}\leanok Unfold, \texttt{field\_simp}, \texttt{linarith}.\end{proof}
 
@@ -313,21 +316,21 @@ $\theta^W_t = (\Phi^J_t - \Psi) / \sigma_L$. ALGEBRAIC: pure algebra (\texttt{fi
 \lean{DefectScalingData}
 \leanok
 \uses{def:NuMomentStructure}
-Hurst parameter $H > 0$, terminal time $T > 0$, moment structure $\nu$, convergence condition.
+Hurst parameter $H > 0$, terminal time $T > 0$, moment structure $\nu$, and the convergence condition $2p(H - 1/2) + 1 > 0$ (i.e., $H > (p-1)/(2p)$). Under these conditions, the fractional kernel integral $\int_0^T (T-t)^{2p(H-1/2)}\,dt$ converges~[1, Assumption~HP].
 \end{defn}
 
 \begin{defn}[Scaling exponent]\label{def:scalingExponent}
 \lean{CombinedEnergySpace.scalingExponent}
 \leanok
 \uses{def:DefectScalingData}
-$2H - 1 + 1/p$.
+$2H - 1 + 1/p$. This exponent governs how the defect $L^p$-norm scales with terminal time $T$. For $H = 1/2$ (Markov), the exponent is $1/p$ (standard L\'evy defect); for $H < 1/2$ (rough), the exponent is smaller, concentrating the defect on recent jumps~[1, Theorem~6.1].
 \end{defn}
 
 \begin{theorem}[Scaling bound positive]\label{thm:scalingBound_pos}
 \lean{CombinedEnergySpace.scalingBound_pos}
 \leanok
 \uses{def:DefectScalingData, def:scalingExponent}
-$0 < T^{2H-1+1/p} \cdot (c_\gamma/(2p-\gamma))^{1/p}$. CONCRETE: from \texttt{rpow\_pos\_of\_pos} and \texttt{div\_pos}.
+$0 < T^{2H-1+1/p} \cdot (c_\gamma/(2p-\gamma))^{1/p}$. The scaling bound is positive: roughness and jumps interact multiplicatively in the defect norm~[1, eq.~(6.4)]. CONCRETE: from \texttt{rpow\_pos\_of\_pos} and \texttt{div\_pos}.
 \end{theorem}
 \begin{proof}\leanok \texttt{mul\_pos} with \texttt{rpow\_pos\_of\_pos}.\end{proof}
 
@@ -335,7 +338,7 @@ $0 < T^{2H-1+1/p} \cdot (c_\gamma/(2p-\gamma))^{1/p}$. CONCRETE: from \texttt{rp
 \lean{CombinedEnergySpace.markov_scaling_exponent}
 \leanok
 \uses{def:scalingExponent}
-$H = 1/2 \implies$ exponent $= 1/p$. ALGEBRAIC: substitutes $H = 1/2$.
+$H = 1/2 \implies$ exponent $= 1/p$. Recovers the standard L\'evy defect scaling (no kernel memory effect)~[1, Corollary~6.2]. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok \texttt{simp [scalingExponent, hH]}.\end{proof}
 
@@ -343,28 +346,28 @@ $H = 1/2 \implies$ exponent $= 1/p$. ALGEBRAIC: substitutes $H = 1/2$.
 \lean{CombinedEnergySpace.rough_exponent_less}
 \leanok
 \uses{def:scalingExponent}
-$H < 1/2 \implies$ exponent $< 1/p$. ALGEBRAIC: inequality from $H < 1/2$ in the formula.
+$H < 1/2 \implies$ exponent $< 1/p$. The defect concentrates on recent jumps for rough kernels, but the kernel singularity amplifies each jump---the two effects interact multiplicatively~[1, Corollary~6.3]. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok \texttt{simp [scalingExponent]; linarith}.\end{proof}
 
 \begin{theorem}[Convergence condition for $r = 2p$]\label{thm:convergence_condition_2p}
 \lean{CombinedEnergySpace.convergence_condition_2p}
 \leanok
-Convergence iff $H > (p-1)/(2p)$. CONCRETE: via \texttt{nlinarith}.
+The kernel integral $\int_0^T (T-t)^{2p(H-1/2)}\,dt$ converges iff $H > (p-1)/(2p)$~[1, Assumption~HP]. CONCRETE: via \texttt{nlinarith}.
 \end{theorem}
 \begin{proof}\leanok Unfold, split into two directions, each closed by \texttt{nlinarith}.\end{proof}
 
 \begin{theorem}[Quadratic defect exactness]\label{thm:quadratic_defect_exact}
 \lean{CombinedEnergySpace.quadratic_defect_exact_volterra}
 \leanok
-$(K \cdot z)^2 = K^2 \cdot z^2$. ALGEBRAIC: \texttt{ring}.
+$(K \cdot z)^2 = K^2 \cdot z^2$. For $f(x) = x^2$, the defect integrand is exact and deterministic: $g_f^K(t,z) = K(T,t)^2 z^2$ (no Taylor approximation---the identity $(x+y)^2 - x^2 - 2xy = y^2$ is algebraic). This gives two-sided BDG bounds and sharpness of the scaling law~[1, Proposition~6.4]. ALGEBRAIC: \texttt{ring}.
 \end{theorem}
 \begin{proof}\leanok \texttt{ring}.\end{proof}
 
 \begin{theorem}[Variance swap positivity]\label{thm:varianceSwapIsometry_pos}
 \lean{CombinedEnergySpace.varianceSwapIsometry_pos}
 \leanok
-$0 < T^{4H-1}/(4H-1) \cdot \nu_4$. CONCRETE: from \texttt{rpow\_pos\_of\_pos} and \texttt{div\_pos}.
+$0 < T^{4H-1}/(4H-1) \cdot \nu_4$. For the quadratic payoff, the It\^o isometry gives the exact $L^2$-norm of the defect: $\mathbb{E}[|\Gamma_V^{x^2}|^2] = \int_0^T K(T,t)^4\,dt \cdot \nu_4$~[1, Proposition~6.4, eq.~(6.8)]. CONCRETE.
 \end{theorem}
 \begin{proof}\leanok \texttt{mul\_pos} with \texttt{div\_pos} and \texttt{rpow\_pos\_of\_pos}.\end{proof}
 
@@ -374,14 +377,14 @@ $0 < T^{4H-1}/(4H-1) \cdot \nu_4$. CONCRETE: from \texttt{rpow\_pos\_of\_pos} an
 \lean{CombinedEnergySpace.HedgingDecomposition}
 \leanok
 \uses{def:CombinedEnergySpace}
-Claim $=$ fair value $+$ $\delta_W$(brownian) $+$ $\tilde{\delta}_J$($\nu$-singular) $+$ $\tilde{\delta}_J$(defect). Three-level hedge with decomposition identity.
+The three-level hedge~[1, Proposition~7.2]: discounted claim $= \mathbb{E}^\mathbb{Q}[\text{claim}] + \delta_W(\text{brownian}) + \tilde{\delta}_J(\nu\text{-singular}) + \tilde{\delta}_J(\text{defect})$. Level~1: stock + variance swap absorb all continuous risk. Level~2: a L\'evy driver proxy absorbs the $\nu$-singular (first-order) jump exposure. Level~3: options on jump variation absorb the $\nu$-regular defect. The residual after all three levels is zero---the boundary of hedgeability is the defect $\Gamma_V^f$ itself.
 \end{defn}
 
 \begin{theorem}[Hedging residual is jump-only]\label{thm:continuous_hedge_absorbs_brownian}
 \lean{CombinedEnergySpace.continuous_hedge_absorbs_brownian}
 \leanok
 \uses{def:HedgingDecomposition}
-$\text{claim} - \text{fair\_value} - \delta_W(\text{brownian}) = \tilde{\delta}_J(\text{singular}) + \tilde{\delta}_J(\text{defect})$. ALGEBRAIC: from \texttt{decomp\_identity} via \texttt{abel}.
+$\text{claim} - \text{fair\_value} - \delta_W(\text{brownian}) = \tilde{\delta}_J(\text{singular}) + \tilde{\delta}_J(\text{defect})$. After delta-hedging with the stock and vega-hedging with a variance swap, the residual is purely jump-driven. The continuous hedge absorbs ALL Brownian risk; the remaining risk is entirely in the Poisson integrals~[1, Proposition~7.2(a)]. Same algebraic pattern as \texttt{product\_rule\_with\_jump\_defect} in BanachLevyComplete.lean~[4]. ALGEBRAIC.
 \end{theorem}
 \begin{proof}\leanok Rewrite with \texttt{decomp\_identity}, close with \texttt{abel}.\end{proof}
 
@@ -389,16 +392,16 @@ $\text{claim} - \text{fair\_value} - \delta_W(\text{brownian}) = \tilde{\delta}_
 \lean{CombinedEnergySpace.perfect_hedging_without_jumps}
 \leanok
 \uses{def:HedgingDecomposition}
-When defect integrand $= 0$: $\tilde{\delta}_J(\text{defect}) = 0$. ALGEBRAIC: from \texttt{map\_zero}.
+When the defect integrand is zero: $\tilde{\delta}_J(\text{defect}) = 0$. In pure rough volatility models ($\nu = 0$), the defect vanishes and hedging is perfect---recovering the El Euch--Rosenbaum (2019) result as a special case~[1, Corollary~7.3]. ALGEBRAIC: from \texttt{map\_zero}.
 \end{theorem}
 \begin{proof}\leanok Rewrite with zero hypothesis, apply \texttt{map\_zero}.\end{proof}
 
 \section{Master Theorem}
 
-\begin{theorem}[Complete Volterra-L\'evy framework]\label{thm:complete_volterra_levy_framework}
+\begin{theorem}[Complete Volterra--L\'evy framework]\label{thm:complete_volterra_levy_framework}
 \lean{CombinedEnergySpace.complete_volterra_levy_framework}
 \leanok
 \uses{thm:D_VL_split, thm:two_regime_decomposition, thm:defect_vanishes_without_jumps, thm:VRNC_continuous_recovery, thm:markov_scaling_exponent, thm:rough_exponent_less, thm:quadratic_defect_exact, thm:perfect_hedging_without_jumps}
-Eight-conjunct master theorem packaging the full pipeline: splitting, two-regime decomposition, defect vanishing, VRNC recovery, Markov recovery, roughness amplification, quadratic exactness, perfect hedging.
+Eight-conjunct master theorem packaging the full pipeline of~[1]: (1)~the operator derivative splits, (2)~the Poisson integral decomposes into $\nu$-singular $+$ $\nu$-regular, (3)~the defect vanishes without jumps, (4)~the VRNC reduces to the continuous case when $\nu = 0$, (5)~the Markov case $H = 1/2$ gives exponent $1/p$, (6)~roughness amplifies the defect for $H < 1/2$, (7)~the quadratic defect is algebraically exact, (8)~perfect hedging holds in pure rough vol. Each conjunct is an algebraic consequence of the structure fields; the Volterra--L\'evy It\^o decomposition (from which they all flow) is itself a theorem.
 \end{theorem}
 \begin{proof}\leanok Each conjunct delegates to its individual theorem.\end{proof}

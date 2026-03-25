@@ -51,7 +51,7 @@
   <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
  </li>
 <li class="">
-  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra–Lévy Itô Decomposition</span></a>
  </li>
 <li class="">
   <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
@@ -96,7 +96,7 @@
 
 <div class="main-text">
 <h1 id="a0000000003">2 The Kernel-Weighted Defect</h1>
-<p>The Volterra-Lévy Itô decomposition, the \(\nu \)-singular/\(\nu \)-regular splitting, the defect vanishing characterization, and \(\nu \)-singularity persistence. </p>
+<p>The Volterra–Lévy Itô decomposition, the \(\nu \)-singular/\(\nu \)-regular splitting, the defect vanishing characterization, and \(\nu \)-singularity persistence. The central object is the kernel-weighted Leibniz defect \(\Gamma _V^f = \tilde{\delta }_J(g_f^K)\), which equals the structurally unhedgeable component of risk&#160;[1, Theorem&#160;5.2]. </p>
 <h1 id="a0000000012">2.1 Process, Payoff, and Bridge</h1>
 <div class="defn_thmwrapper theorem-style-definition" id="def:VolterraProcessData">
   <div class="defn_thmheading">
@@ -107,7 +107,7 @@
     <span class="defn_thmtitle">Volterra process data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.VolterraProcessData def:CombinedEnergySpace Data for a Volterra process: \(V_T = \delta _W(\text{kernel\_ cont}) + \tilde{\delta }_J(\text{kernel\_ jump})\). </p>
+  <p> CombinedEnergySpace.VolterraProcessData def:CombinedEnergySpace Data for a Volterra process: \(V_T = \delta _W(\text{kernel\_ cont}) + \tilde{\delta }_J(\text{kernel\_ jump})\), decomposing the terminal value into its continuous and jump stochastic integrals against the kernel \(K(T,\cdot )\)&#160;[1, Definition&#160;2.1, eq.&#160;(2.2)]. </p>
 
   </div>
 </div>
@@ -120,7 +120,7 @@
     <span class="defn_thmtitle">Smooth payoff</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.SmoothPayoff def:CombinedEnergySpace A smooth function \(f\) applied to \(V_T\). Carries \(f\), \(f'\), the Taylor remainder \(g_f^K(v,z) = f(v+Kz) - f(v) - f'(v)Kz\), with \(g_f^K(v,0) = 0\) and a uniform quadratic bound \(|g_f^K(v,z)| \leq C_{\mathrm{defect}} \cdot z^2\). </p>
+  <p> CombinedEnergySpace.SmoothPayoff def:CombinedEnergySpace A smooth function \(f \in C_b^3(\mathbb {R})\) applied to \(V_T\). Carries \(f\), \(f'\), the Taylor remainder \(g_f^K(v,z) = f(v+Kz) - f(v) - f'(v)Kz\) (the kernel-weighted defect integrand), with \(g_f^K(v,0) = 0\) and a uniform quadratic bound \(|g_f^K(v,z)| \leq C_{\mathrm{defect}} \cdot z^2\) where \(C_{\mathrm{defect}} = \tfrac {1}{2}\| f''\| _\infty K(T,t)^2\)&#160;[1, Theorem&#160;3.1, eq.&#160;(3.7)]. </p>
 
   </div>
 </div>
@@ -133,11 +133,11 @@
     <span class="defn_thmtitle">Hilbert-jump bridge</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.HilbertJumpBridge def:VolterraProcessData, def:SmoothPayoff Connects the Hilbert Itô formula (OperatorDerivative.lean) and the Banach defect theory (BanachLevyComplete.lean) on \(H_W \times \tilde{H}_J\). Carries the ONE stochastic analysis input (<span class="ttfamily">levy_ito</span>: the Lévy-Itô formula from Applebaum&#160;[2], Theorem&#160;4.4.7), the Taylor split, the defect coherence, and the payoff-process connection. </p>
+  <p> CombinedEnergySpace.HilbertJumpBridge def:VolterraProcessData, def:SmoothPayoff Connects the Hilbert Itô formula (from OperatorDerivative.lean&#160;[3]) and the Banach defect theory (from BanachLevyComplete.lean&#160;[4]) on the combined space \(H_W \times \tilde{H}_J\). The bridge carries exactly <b class="bfseries">one</b> stochastic analysis input: the Lévy–Itô formula (<span class="ttfamily">levy_ito</span>, from Applebaum&#160;[2], Theorem&#160;4.4.7) applied to the semimartingale \(V_T(t) = \int _0^t K(T,s)\, dL_s\). It also carries the Taylor split (algebraic), the defect coherence (connecting the abstract Banach element to the pointwise formula), and the payoff-process connection. The dependency chain is: process \(\to \) payoff \(\to \) bridge \(\to \) decomposition theorem. </p>
 
   </div>
 </div>
-<h1 id="a0000000013">2.2 The Volterra-Lévy Itô Decomposition</h1>
+<h1 id="a0000000013">2.2 The Volterra–Lévy Itô Decomposition</h1>
 <div class="defn_thmwrapper theorem-style-definition" id="def:kernel_weighted_defect">
   <div class="defn_thmheading">
     <span class="defn_thmcaption">
@@ -147,7 +147,7 @@
     <span class="defn_thmtitle">Kernel-weighted defect</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.kernel_weighted_defect def:HilbertJumpBridge \(\Gamma _V^f := \tilde{\delta }_J(g_f^K)\), the compensated Poisson integral of the defect integrand. </p>
+  <p> CombinedEnergySpace.kernel_weighted_defect def:HilbertJumpBridge \(\Gamma _V^f := \tilde{\delta }_J(g_f^K)\), the compensated Poisson integral of the defect integrand. This is the kernel-weighted Leibniz defect—the precise content invisible to Malliavin calculus, and the structurally unhedgeable component of risk in Volterra–Lévy markets&#160;[1, Theorem&#160;5.2, eq.&#160;(5.10)]. </p>
 
   </div>
 </div>
@@ -160,7 +160,7 @@
     <span class="theorem_thmtitle">Defect is Taylor remainder</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.defect_is_taylor_remainder def:HilbertJumpBridge, def:SmoothPayoff \(g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z\). ALGEBRAIC: unfolds <span class="ttfamily">defect_coherence</span>. </p>
+  <p> CombinedEnergySpace.defect_is_taylor_remainder def:HilbertJumpBridge, def:SmoothPayoff \(g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z\). The defect integrand IS the Taylor remainder of \(f\) composed with the kernel—connecting the abstract \(\tilde{H}_J\) element to the paper’s pointwise formula&#160;[1, eq.&#160;(3.7)]. ALGEBRAIC: unfolds <span class="ttfamily">defect_coherence</span>. </p>
 
   </div>
 </div>
@@ -185,7 +185,7 @@
     <span class="lemma_thmtitle">Itô composition</span>
   </div>
   <div class="lemma_thmcontent">
-  <p> CombinedEnergySpace.ito_composition def:HilbertJumpBridge, def:kernel_weighted_defect \(f(V_T) = f(0) + \delta _W(f' \cdot K) + \tilde{\delta }_J(\text{linear}) + \Gamma _V^f + \text{correction}\). ALGEBRAIC: from <span class="ttfamily">levy_ito</span>, <span class="ttfamily">taylor_split</span>, and <span class="ttfamily">map_add</span>. </p>
+  <p> CombinedEnergySpace.ito_composition def:HilbertJumpBridge, def:kernel_weighted_defect \(f(V_T) = f(0) + \delta _W(f' \cdot K) + \tilde{\delta }_J(\text{linear}) + \Gamma _V^f + \text{correction}\). This is the five-term identity obtained by composing the Lévy–Itô formula with the Taylor split of the jump integrand. ALGEBRAIC: from <span class="ttfamily">levy_ito</span>, <span class="ttfamily">taylor_split</span>, and <span class="ttfamily">map_add</span> (linearity of \(\tilde{\delta }_J\)). </p>
 
   </div>
 </div>
@@ -207,14 +207,14 @@
     Theorem
     </span>
     <span class="theorem_thmlabel">17</span>
-    <span class="theorem_thmtitle">Volterra-Lévy Itô decomposition</span>
+    <span class="theorem_thmtitle">Volterra–Lévy Itô decomposition</span>
   </div>
   <div class="theorem_thmcontent">
   <p> CombinedEnergySpace.volterra_levy_ito_decomposition lem:ito_composition </p>
 <div class="displaymath" id="a0000000023">
-  \[  f(V_T) - f(0) = \delta _W(f' \cdot K) + \tilde{\delta }_J(\text{linear}) + \tilde{\delta }_J(g_f^K) + \text{correction}  \]
+  \[  f(V_T) - f(0) = \underbrace{\delta _W(\alpha ^f)}_{\text{continuous martingale}} + \underbrace{\tilde{\delta }_J(f' K z)}_{\nu \text{-singular}} + \underbrace{\tilde{\delta }_J(g_f^K)}_{\nu \text{-regular (defect)}} + \underbrace{A_T^f}_{\text{drift}}  \]
 </div>
-<p> This is a <b class="bfseries">theorem</b>, not a structure field. ALGEBRAIC: from <span class="ttfamily">ito_composition</span> via <span class="ttfamily">abel</span>. </p>
+<p> This is the paper’s Theorem&#160;3.1&#160;[1]. It is a <b class="bfseries">theorem</b> (derived from <span class="ttfamily">ito_composition</span> by algebraic rearrangement), not a structure field. The decomposition composes the Hilbert Itô formula (OperatorDerivative.lean&#160;[3]) and the Banach defect theory (BanachLevyComplete.lean&#160;[4]) on the combined space \(H_W \times \tilde{H}_J\). </p>
 
   </div>
 </div>
@@ -239,7 +239,7 @@
     <span class="theorem_thmtitle">Two-regime decomposition (Theorem 4.2)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.two_regime_decomposition def:kernel_weighted_defect, def:HilbertJumpBridge \(\tilde{\delta }_J(h_f^K) = \tilde{\delta }_J(\text{linear}) + \Gamma _V^f\). ALGEBRAIC: from <span class="ttfamily">taylor_split</span> and <span class="ttfamily">map_add</span>. </p>
+  <p> CombinedEnergySpace.two_regime_decomposition def:kernel_weighted_defect, def:HilbertJumpBridge \(\tilde{\delta }_J(h_f^K) = \tilde{\delta }_J(\text{linear}) + \Gamma _V^f\). The compensated Poisson integral splits into a \(\nu \)-singular part (linear in jump size \(z\), with infinite \(\tilde{H}_J\)-norm) and a \(\nu \)-regular part (the defect \(\Gamma _V^f\), with finite \(\tilde{H}_J\)-norm). This is the content of&#160;[1, Theorem&#160;5.2(c)]. ALGEBRAIC: from <span class="ttfamily">taylor_split</span> and <span class="ttfamily">map_add</span>. </p>
 
   </div>
 </div>
@@ -265,7 +265,7 @@
     <span class="defn_thmtitle">\(\nu \)-moment structure</span>
   </div>
   <div class="defn_thmcontent">
-  <p> NuMomentStructure Captures the integrability dichotomy for stable-type measures with index \(\gamma \in (1,2)\): \(\int |z|^p\, \nu (dz) = \infty \) for \(p {\lt} \gamma \), \(\int |z|^{2p}\, \nu (dz) {\lt} \infty \) for \(2p {\gt} \gamma \). </p>
+  <p> NuMomentStructure Captures the integrability dichotomy for stable-type Lévy measures with index \(\gamma \in (1,2)\)&#160;[1, Assumption&#160;L1]: \(\int |z|^p\, \nu (dz) = \infty \) for \(p {\lt} \gamma \) (\(\nu \)-singular regime) and \(\int |z|^{2p}\, \nu (dz) {\lt} \infty \) for \(2p {\gt} \gamma \) (\(\nu \)-regular regime). The working exponent \(p \in (1,\gamma )\) and the small-jump constant \(c_\gamma \) from the stable density bound \(\nu (dz) \sim c_\gamma |z|^{-(1+\gamma )}\, dz\). </p>
 
   </div>
 </div>
@@ -278,7 +278,7 @@
     <span class="theorem_thmtitle">2p-th moment positivity</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> NuMomentStructure.small_jump_2p_moment_pos def:NuMomentStructure \(0 {\lt} 2c_\gamma / (2p - \gamma )\). CONCRETE: from <span class="ttfamily">div_pos</span>. </p>
+  <p> NuMomentStructure.small_jump_2p_moment_pos def:NuMomentStructure \(0 {\lt} 2c_\gamma / (2p - \gamma )\). The small-jump moment is positive and finite in the \(\nu \)-regular regime. CONCRETE: from <span class="ttfamily">div_pos</span>. </p>
 
   </div>
 </div>
@@ -303,7 +303,7 @@
     <span class="theorem_thmtitle">\(p\)-moment divergence</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> NuMomentStructure.p_moment_divergence_exponent def:NuMomentStructure \(p - \gamma {\lt} 0\). CONCRETE: matches <span class="ttfamily">stable_small_jump_moment_diverges</span> in BanachLevyComplete.lean&#160;[4]. </p>
+  <p> NuMomentStructure.p_moment_divergence_exponent def:NuMomentStructure \(p - \gamma {\lt} 0\). The divergence exponent is negative, encoding \(\int |z|^p\, \nu (dz) = \infty \). Matches <span class="ttfamily">stable_small_jump_moment_diverges</span> in BanachLevyComplete.lean&#160;[4]. CONCRETE. </p>
 
   </div>
 </div>
@@ -328,7 +328,7 @@
     <span class="theorem_thmtitle">\(2p\)-moment convergence</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> NuMomentStructure.two_p_gt_γ def:NuMomentStructure \(2p {\gt} \gamma \). CONCRETE: matches <span class="ttfamily">stable_small_jump_moment_finite</span> in BanachLevyComplete.lean&#160;[4]. </p>
+  <p> NuMomentStructure.two_p_gt_γ def:NuMomentStructure \(2p {\gt} \gamma \). The convergence exponent exceeds the stable index, encoding \(\int |z|^{2p}\, \nu (dz) {\lt} \infty \). Matches <span class="ttfamily">stable_small_jump_moment_finite</span> in BanachLevyComplete.lean&#160;[4]. CONCRETE: from \(p {\gt} 1\) and \(\gamma {\lt} 2\). </p>
 
   </div>
 </div>
@@ -353,7 +353,7 @@
     <span class="theorem_thmtitle">Defect norm from uniform bound</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.defect_norm_from_uniform_bound def:SmoothPayoff, def:NuMomentStructure \(0 {\lt} C_{\mathrm{defect}}^p \cdot \int |z|^{2p}\, \nu (dz)\). CONCRETE: connects the uniform Taylor bound to the scaling law. </p>
+  <p> CombinedEnergySpace.defect_norm_from_uniform_bound def:SmoothPayoff, def:NuMomentStructure \(0 {\lt} C_{\mathrm{defect}}^p \cdot \int _{|z| \leq 1} |z|^{2p}\, \nu (dz)\). Connects the uniform Taylor bound to the scaling law: the product of the defect constant and the small-jump moment is positive, establishing the leading term in the scaling estimate&#160;[1, Theorem&#160;6.1, eq.&#160;(6.2)]. CONCRETE. </p>
 
   </div>
 </div>
@@ -378,7 +378,7 @@
     <span class="defn_thmtitle">\(\nu \)-singularity data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> NuSingularityData The kernel norm \(\int _0^T |K(T,s)|^p\, ds {\gt} 0\) and truncated \(z\)-moments \(\int _{|z| \leq R} |z|^p\, \nu (dz)\) which are unbounded as \(R \to \infty \). </p>
+  <p> NuSingularityData The kernel norm \(\int _0^T |K(T,s)|^p\, ds {\gt} 0\) (finite by the kernel regularity assumption&#160;[1, Assumption&#160;K1]) and truncated \(z\)-moments \(\int _{|z| \leq R} |z|^p\, \nu (dz)\) which are unbounded as \(R \to \infty \) (since \(p {\lt} \gamma \) and \(\nu \) is \(\gamma \)-stable near zero). </p>
 
   </div>
 </div>
@@ -391,7 +391,7 @@
     <span class="theorem_thmtitle">\(\nu \)-singularity persists (Proposition 6.x)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.nu_singularity_persists def:NuMomentStructure, def:NuSingularityData \(\forall M,\; \exists R,\; \| K\| _p \cdot \int _{|z| \leq R} |z|^p\, \nu (dz) {\gt} M\). The product norm of \(K(T,\cdot )z\) exceeds any bound, hence \(V_T \notin \mathrm{im}(\tilde{\delta }_J)\). CONCRETE: from <span class="ttfamily">mul_lt_mul_of_pos_left</span> and <span class="ttfamily">field_simp</span>. </p>
+  <p> CombinedEnergySpace.nu_singularity_persists def:NuMomentStructure, def:NuSingularityData \(\forall M,\; \exists R,\; \| K\| _p \cdot \int _{|z| \leq R} |z|^p\, \nu (dz) {\gt} M\). The \(\tilde{H}_J\)-norm of the linear integrand \(K(T,\cdot )z\) is infinite: the product of a positive kernel norm and an unbounded \(z\)-moment exceeds any bound. Hence \(V_T \notin \mathrm{im}(\tilde{\delta }_J)\): the kernel cannot regularize the jump-size singularity, because \(K\) acts on time while the singularity is in \(z\)&#160;[1, Proposition&#160;6.1]. CONCRETE: from <span class="ttfamily">mul_lt_mul_of_pos_left</span> and <span class="ttfamily">field_simp</span>. </p>
 
   </div>
 </div>
@@ -417,7 +417,7 @@
     <span class="defn_thmtitle">Jump presence</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.JumpPresence def:HilbertJumpBridge Whether jumps are present. When <span class="ttfamily">has_jumps = false</span>, the defect integrand is zero (justified by <span class="ttfamily">defect_at_zero</span>: the Taylor remainder vanishes at \(z = 0\)). </p>
+  <p> CombinedEnergySpace.JumpPresence def:HilbertJumpBridge Whether the Lévy measure is nontrivial. When \(\nu = 0\) (no jumps), all jump sizes are \(z = 0\), so by <span class="ttfamily">defect_at_zero</span> (the Taylor remainder at zero displacement is zero), the defect integrand vanishes in \(\tilde{H}_J\). This connects to the fundamental dichotomy: \(D\) satisfies the Leibniz rule if and only if the driver has no jumps&#160;[4, Theorem&#160;B]. </p>
 
   </div>
 </div>
@@ -430,7 +430,7 @@
     <span class="theorem_thmtitle">Defect vanishes without jumps (Proposition 7.x)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.defect_vanishes_without_jumps_volterra def:JumpPresence, def:kernel_weighted_defect When \(\nu = 0\): \(\Gamma _V^f = 0\). ALGEBRAIC: from <span class="ttfamily">no_jumps_zero_defect</span> and <span class="ttfamily">map_zero</span>. </p>
+  <p> CombinedEnergySpace.defect_vanishes_without_jumps_volterra def:JumpPresence, def:kernel_weighted_defect When \(\nu = 0\): \(\Gamma _V^f = 0\). The kernel-weighted defect vanishes, recovering perfect hedging in pure rough volatility models (El Euch–Rosenbaum 2019). The defect IS the non-Gaussian content: it vanishes precisely when the driver is Gaussian&#160;[1, Proposition&#160;7.1]. ALGEBRAIC: from <span class="ttfamily">no_jumps_zero_defect</span> and <span class="ttfamily">map_zero</span>. </p>
 
   </div>
 </div>

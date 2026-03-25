@@ -51,7 +51,7 @@
   <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
  </li>
 <li class="">
-  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra–Lévy Itô Decomposition</span></a>
  </li>
 <li class="">
   <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
@@ -96,7 +96,7 @@
 
 <div class="main-text">
 <h1 id="a0000000004">3 Pricing and Hedging</h1>
-<p>Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the scaling law for fractional kernels. </p>
+<p>Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the scaling law for fractional kernels. The central message: the kernel \(K\) enters the pricing structure itself—continuous and jump risk premia cannot be chosen independently&#160;[1, Theorem&#160;5.1]. </p>
 <h1 id="a0000000016">3.1 Bracket Invariance</h1>
 <div class="defn_thmwrapper theorem-style-definition" id="def:BracketData">
   <div class="defn_thmheading">
@@ -107,7 +107,7 @@
     <span class="defn_thmtitle">Bracket data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> BracketData def:VolterraKernel Carries \(\sigma _L\), the kernel-squared integral \(\int _0^t K(T,s)^2\, ds\), and the bracket function with \(\langle V^c \rangle _t = \sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\). </p>
+  <p> BracketData def:VolterraKernel The continuous bracket of the partial process: \(\langle V_T^c \rangle _t = \sigma _L^2 \int _0^t K(T,s)^2\, ds\). Carries \(\sigma _L\), the kernel-squared integral, and the bracket function. The key property: the bracket is deterministic (depends only on \(K\) and \(\sigma _L\), not on \(\omega \))&#160;[1, Theorem&#160;5.3(a)]. </p>
 
   </div>
 </div>
@@ -120,7 +120,7 @@
     <span class="theorem_thmtitle">Bracket is deterministic</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.bracket_deterministic def:BracketData \(\exists c,\; \langle V^c \rangle _t = c\). ALGEBRAIC: the witness is \(\sigma _L^2 \cdot \int K^2\, ds\) from <span class="ttfamily">bracket_eq</span>. </p>
+  <p> CombinedEnergySpace.bracket_deterministic def:BracketData \(\exists c,\; \langle V_T^c \rangle _t = c\). The bracket is a real number at each \(t\), not a random variable. The witness is \(\sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\) from <span class="ttfamily">bracket_eq</span>. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -142,10 +142,10 @@
     Theorem
     </span>
     <span class="theorem_thmlabel">30</span>
-    <span class="theorem_thmtitle">Bracket measure invariance (Theorem 5.x)</span>
+    <span class="theorem_thmtitle">Bracket measure invariance (Theorem 5.3)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.bracket_measure_invariant def:BracketData \(\langle V^c \rangle _t = \sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\). The RHS has no \(\omega \)-dependence: deterministic, hence identical under \(P\) and \(Q\). </p>
+  <p> CombinedEnergySpace.bracket_measure_invariant def:BracketData \(\langle V_T^c \rangle _t = \sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\). The RHS has no \(\omega \)-dependence: deterministic, hence identical under \(\mathbb {P}\) and \(\mathbb {Q}\). Neither \(\sigma _L\) nor \(K\) changes under an absolutely continuous measure change&#160;[1, Theorem&#160;5.3]. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -170,7 +170,7 @@
     <span class="theorem_thmtitle">Roughness invariance</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.roughness_invariant thm:bracket_measure_invariant Both time points \(t_1, t_2\) have the deterministic formula, so the log-log slope (and hence \(H\)) is the same under any equivalent measure. </p>
+  <p> CombinedEnergySpace.roughness_invariant thm:bracket_measure_invariant Both time points \(t_1, t_2\) have the deterministic formula. The Hurst parameter \(H\)—extracted from the log-log slope of \(\langle V_T^c \rangle _t\)—is therefore the same under any equivalent measure. The roughness estimated from historical data is the roughness that governs risk-neutral dynamics. This is a structural feature of the energy space, not a modelling assumption&#160;[1, Corollary&#160;5.4]. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -196,7 +196,7 @@
     <span class="defn_thmtitle">Girsanov data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> GirsanovData Continuous and jump market prices of risk \(\theta ^W\), \(\theta ^J\), diffusion coefficient \(\sigma _L\), and jump drift \(\Phi ^J\). </p>
+  <p> GirsanovData The market prices of risk: continuous \(\theta ^W(t)\) (Girsanov drift removal) and jump \(\theta ^J(t,z)\) (Lévy–Girsanov exponential tilting&#160;[2, Theorem&#160;9.12]), diffusion coefficient \(\sigma _L\), and jump drift contribution \(\Phi ^J(t) = \int z(e^{\theta ^J(t,z)} - 1)\, \nu (dz)\). </p>
 
   </div>
 </div>
@@ -209,7 +209,7 @@
     <span class="defn_thmtitle">Effective drift rate</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.effectiveDriftRate def:GirsanovData \(\Psi := -\sigma _L \theta ^W + \Phi ^J\). Defined, not assumed. </p>
+  <p> CombinedEnergySpace.effectiveDriftRate def:GirsanovData \(\Psi _t := -\sigma _L \theta _t^W + \Phi _t^J\). The effective drift rate aggregates the Brownian and jump risk premia into a single quantity. The kernel \(K\) couples \(\Psi \) across time via a Volterra integral equation&#160;[1, eq.&#160;(5.3)]. Defined, not assumed. </p>
 
   </div>
 </div>
@@ -222,7 +222,7 @@
     <span class="defn_thmtitle">VRNC data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> VRNCData def:GirsanovData, def:VolterraKernel Extends Girsanov data with kernel, drift rate \(\mu \), risk-free rate \(r\), Lévy exposure \(\lambda \), memory loading \(\beta \), and drift functional \(B_t^\theta = \int _0^t K(t,s)\Psi (s)\, ds\). </p>
+  <p> VRNCData def:GirsanovData, def:VolterraKernel Extends Girsanov data with the kernel, drift rate \(\mu _t\), risk-free rate \(r\), direct Lévy exposure \(\lambda _t\), memory factor loading \(\beta _t\), and the drift functional \(B_t^\theta = \int _0^t K(t,s)\Psi (s)\, ds\). The VRNC requires solving a Volterra integral equation: \(\mu _t - r = -[\lambda _t + \beta _t K(t,t)]\Psi _t - \beta _t \int _0^t \partial _t K(t,s)\Psi _s\, ds\)&#160;[1, Theorem&#160;5.1]. </p>
 
   </div>
 </div>
@@ -235,7 +235,7 @@
     <span class="theorem_thmtitle">\(\Psi \) formula</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.VRNC_determines_Psi def:effectiveDriftRate \(\Psi _t = -\sigma _L \theta ^W_t + \Phi ^J_t\). ALGEBRAIC: unfolds the definition. </p>
+  <p> CombinedEnergySpace.VRNC_determines_Psi def:effectiveDriftRate \(\Psi _t = -\sigma _L \theta _t^W + \Phi _t^J\). ALGEBRAIC: unfolds the definition. </p>
 
   </div>
 </div>
@@ -260,7 +260,7 @@
     <span class="theorem_thmtitle">VRNC continuous recovery</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.VRNC_continuous_recovery def:effectiveDriftRate When \(\nu = 0\): \(\Psi = -\sigma _L \theta ^W\). ALGEBRAIC: substitutes \(\Phi ^J = 0\). </p>
+  <p> CombinedEnergySpace.VRNC_continuous_recovery def:effectiveDriftRate When \(\nu = 0\): \(\Psi = -\sigma _L \theta ^W\). The jump drift vanishes and the constraint reduces to the continuous Volterra risk-neutral condition of&#160;[1, Corollary&#160;5.2]. ALGEBRAIC: substitutes \(\Phi ^J = 0\). </p>
 
   </div>
 </div>
@@ -285,7 +285,7 @@
     <span class="theorem_thmtitle">\(\theta ^W\) from \(\Psi \) and \(\Phi ^J\)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.continuous_from_jump_choice def:effectiveDriftRate \(\theta ^W_t = (\Phi ^J_t - \Psi ) / \sigma _L\). ALGEBRAIC: pure algebra (<span class="ttfamily">field_simp</span> + <span class="ttfamily">linarith</span>). </p>
+  <p> CombinedEnergySpace.continuous_from_jump_choice def:effectiveDriftRate \(\theta ^W_t = (\Phi ^J_t - \Psi ) / \sigma _L\). Given a choice of jump pricing (\(\Phi ^J\)), the continuous market price of risk is determined. This is the measure-selection degree of freedom: one equation in two unknowns&#160;[1, Proposition&#160;5.5]. ALGEBRAIC: <span class="ttfamily">field_simp</span> + <span class="ttfamily">linarith</span>. </p>
 
   </div>
 </div>
@@ -311,7 +311,7 @@
     <span class="defn_thmtitle">Defect scaling data</span>
   </div>
   <div class="defn_thmcontent">
-  <p> DefectScalingData def:NuMomentStructure Hurst parameter \(H {\gt} 0\), terminal time \(T {\gt} 0\), moment structure \(\nu \), convergence condition. </p>
+  <p> DefectScalingData def:NuMomentStructure Hurst parameter \(H {\gt} 0\), terminal time \(T {\gt} 0\), moment structure \(\nu \), and the convergence condition \(2p(H - 1/2) + 1 {\gt} 0\) (i.e., \(H {\gt} (p-1)/(2p)\)). Under these conditions, the fractional kernel integral \(\int _0^T (T-t)^{2p(H-1/2)}\, dt\) converges&#160;[1, Assumption&#160;HP]. </p>
 
   </div>
 </div>
@@ -324,7 +324,7 @@
     <span class="defn_thmtitle">Scaling exponent</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.scalingExponent def:DefectScalingData \(2H - 1 + 1/p\). </p>
+  <p> CombinedEnergySpace.scalingExponent def:DefectScalingData \(2H - 1 + 1/p\). This exponent governs how the defect \(L^p\)-norm scales with terminal time \(T\). For \(H = 1/2\) (Markov), the exponent is \(1/p\) (standard Lévy defect); for \(H {\lt} 1/2\) (rough), the exponent is smaller, concentrating the defect on recent jumps&#160;[1, Theorem&#160;6.1]. </p>
 
   </div>
 </div>
@@ -337,7 +337,7 @@
     <span class="theorem_thmtitle">Scaling bound positive</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.scalingBound_pos def:DefectScalingData, def:scalingExponent \(0 {\lt} T^{2H-1+1/p} \cdot (c_\gamma /(2p-\gamma ))^{1/p}\). CONCRETE: from <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">div_pos</span>. </p>
+  <p> CombinedEnergySpace.scalingBound_pos def:DefectScalingData, def:scalingExponent \(0 {\lt} T^{2H-1+1/p} \cdot (c_\gamma /(2p-\gamma ))^{1/p}\). The scaling bound is positive: roughness and jumps interact multiplicatively in the defect norm&#160;[1, eq.&#160;(6.4)]. CONCRETE: from <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">div_pos</span>. </p>
 
   </div>
 </div>
@@ -362,7 +362,7 @@
     <span class="theorem_thmtitle">Markov scaling recovery</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.markov_scaling_exponent def:scalingExponent \(H = 1/2 \implies \) exponent \(= 1/p\). ALGEBRAIC: substitutes \(H = 1/2\). </p>
+  <p> CombinedEnergySpace.markov_scaling_exponent def:scalingExponent \(H = 1/2 \implies \) exponent \(= 1/p\). Recovers the standard Lévy defect scaling (no kernel memory effect)&#160;[1, Corollary&#160;6.2]. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -387,7 +387,7 @@
     <span class="theorem_thmtitle">Roughness amplification</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.rough_exponent_less def:scalingExponent \(H {\lt} 1/2 \implies \) exponent \({\lt} 1/p\). ALGEBRAIC: inequality from \(H {\lt} 1/2\) in the formula. </p>
+  <p> CombinedEnergySpace.rough_exponent_less def:scalingExponent \(H {\lt} 1/2 \implies \) exponent \({\lt} 1/p\). The defect concentrates on recent jumps for rough kernels, but the kernel singularity amplifies each jump—the two effects interact multiplicatively&#160;[1, Corollary&#160;6.3]. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -412,7 +412,7 @@
     <span class="theorem_thmtitle">Convergence condition for \(r = 2p\)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.convergence_condition_2p Convergence iff \(H {\gt} (p-1)/(2p)\). CONCRETE: via <span class="ttfamily">nlinarith</span>. </p>
+  <p> CombinedEnergySpace.convergence_condition_2p The kernel integral \(\int _0^T (T-t)^{2p(H-1/2)}\, dt\) converges iff \(H {\gt} (p-1)/(2p)\)&#160;[1, Assumption&#160;HP]. CONCRETE: via <span class="ttfamily">nlinarith</span>. </p>
 
   </div>
 </div>
@@ -437,7 +437,7 @@
     <span class="theorem_thmtitle">Quadratic defect exactness</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.quadratic_defect_exact_volterra \((K \cdot z)^2 = K^2 \cdot z^2\). ALGEBRAIC: <span class="ttfamily">ring</span>. </p>
+  <p> CombinedEnergySpace.quadratic_defect_exact_volterra \((K \cdot z)^2 = K^2 \cdot z^2\). For \(f(x) = x^2\), the defect integrand is exact and deterministic: \(g_f^K(t,z) = K(T,t)^2 z^2\) (no Taylor approximation—the identity \((x+y)^2 - x^2 - 2xy = y^2\) is algebraic). This gives two-sided BDG bounds and sharpness of the scaling law&#160;[1, Proposition&#160;6.4]. ALGEBRAIC: <span class="ttfamily">ring</span>. </p>
 
   </div>
 </div>
@@ -462,7 +462,7 @@
     <span class="theorem_thmtitle">Variance swap positivity</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.varianceSwapIsometry_pos \(0 {\lt} T^{4H-1}/(4H-1) \cdot \nu _4\). CONCRETE: from <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">div_pos</span>. </p>
+  <p> CombinedEnergySpace.varianceSwapIsometry_pos \(0 {\lt} T^{4H-1}/(4H-1) \cdot \nu _4\). For the quadratic payoff, the Itô isometry gives the exact \(L^2\)-norm of the defect: \(\mathbb {E}[|\Gamma _V^{x^2}|^2] = \int _0^T K(T,t)^4\, dt \cdot \nu _4\)&#160;[1, Proposition&#160;6.4, eq.&#160;(6.8)]. CONCRETE. </p>
 
   </div>
 </div>
@@ -488,7 +488,7 @@
     <span class="defn_thmtitle">Hedging decomposition</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.HedgingDecomposition def:CombinedEnergySpace Claim \(=\) fair value \(+\) \(\delta _W\)(brownian) \(+\) \(\tilde{\delta }_J\)(\(\nu \)-singular) \(+\) \(\tilde{\delta }_J\)(defect). Three-level hedge with decomposition identity. </p>
+  <p> CombinedEnergySpace.HedgingDecomposition def:CombinedEnergySpace The three-level hedge&#160;[1, Proposition&#160;7.2]: discounted claim \(= \mathbb {E}^\mathbb {Q}[\text{claim}] + \delta _W(\text{brownian}) + \tilde{\delta }_J(\nu \text{-singular}) + \tilde{\delta }_J(\text{defect})\). Level&#160;1: stock + variance swap absorb all continuous risk. Level&#160;2: a Lévy driver proxy absorbs the \(\nu \)-singular (first-order) jump exposure. Level&#160;3: options on jump variation absorb the \(\nu \)-regular defect. The residual after all three levels is zero—the boundary of hedgeability is the defect \(\Gamma _V^f\) itself. </p>
 
   </div>
 </div>
@@ -501,7 +501,7 @@
     <span class="theorem_thmtitle">Hedging residual is jump-only</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.continuous_hedge_absorbs_brownian def:HedgingDecomposition \(\text{claim} - \text{fair\_ value} - \delta _W(\text{brownian}) = \tilde{\delta }_J(\text{singular}) + \tilde{\delta }_J(\text{defect})\). ALGEBRAIC: from <span class="ttfamily">decomp_identity</span> via <span class="ttfamily">abel</span>. </p>
+  <p> CombinedEnergySpace.continuous_hedge_absorbs_brownian def:HedgingDecomposition \(\text{claim} - \text{fair\_ value} - \delta _W(\text{brownian}) = \tilde{\delta }_J(\text{singular}) + \tilde{\delta }_J(\text{defect})\). After delta-hedging with the stock and vega-hedging with a variance swap, the residual is purely jump-driven. The continuous hedge absorbs ALL Brownian risk; the remaining risk is entirely in the Poisson integrals&#160;[1, Proposition&#160;7.2(a)]. Same algebraic pattern as <span class="ttfamily">product_rule_with_jump_defect</span> in BanachLevyComplete.lean&#160;[4]. ALGEBRAIC. </p>
 
   </div>
 </div>
@@ -526,7 +526,7 @@
     <span class="theorem_thmtitle">Perfect hedging without jumps</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.perfect_hedging_without_jumps def:HedgingDecomposition When defect integrand \(= 0\): \(\tilde{\delta }_J(\text{defect}) = 0\). ALGEBRAIC: from <span class="ttfamily">map_zero</span>. </p>
+  <p> CombinedEnergySpace.perfect_hedging_without_jumps def:HedgingDecomposition When the defect integrand is zero: \(\tilde{\delta }_J(\text{defect}) = 0\). In pure rough volatility models (\(\nu = 0\)), the defect vanishes and hedging is perfect—recovering the El Euch–Rosenbaum (2019) result as a special case&#160;[1, Corollary&#160;7.3]. ALGEBRAIC: from <span class="ttfamily">map_zero</span>. </p>
 
   </div>
 </div>
@@ -549,10 +549,10 @@
     Theorem
     </span>
     <span class="theorem_thmlabel">49</span>
-    <span class="theorem_thmtitle">Complete Volterra-Lévy framework</span>
+    <span class="theorem_thmtitle">Complete Volterra–Lévy framework</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.complete_volterra_levy_framework thm:D_VL_split, thm:two_regime_decomposition, thm:defect_vanishes_without_jumps, thm:VRNC_continuous_recovery, thm:markov_scaling_exponent, thm:rough_exponent_less, thm:quadratic_defect_exact, thm:perfect_hedging_without_jumps Eight-conjunct master theorem packaging the full pipeline: splitting, two-regime decomposition, defect vanishing, VRNC recovery, Markov recovery, roughness amplification, quadratic exactness, perfect hedging. </p>
+  <p> CombinedEnergySpace.complete_volterra_levy_framework thm:D_VL_split, thm:two_regime_decomposition, thm:defect_vanishes_without_jumps, thm:VRNC_continuous_recovery, thm:markov_scaling_exponent, thm:rough_exponent_less, thm:quadratic_defect_exact, thm:perfect_hedging_without_jumps Eight-conjunct master theorem packaging the full pipeline of&#160;[1]: (1)&#160;the operator derivative splits, (2)&#160;the Poisson integral decomposes into \(\nu \)-singular \(+\) \(\nu \)-regular, (3)&#160;the defect vanishes without jumps, (4)&#160;the VRNC reduces to the continuous case when \(\nu = 0\), (5)&#160;the Markov case \(H = 1/2\) gives exponent \(1/p\), (6)&#160;roughness amplifies the defect for \(H {\lt} 1/2\), (7)&#160;the quadratic defect is algebraically exact, (8)&#160;perfect hedging holds in pure rough vol. Each conjunct is an algebraic consequence of the structure fields; the Volterra–Lévy Itô decomposition (from which they all flow) is itself a theorem. </p>
 
   </div>
 </div>

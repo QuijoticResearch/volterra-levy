@@ -51,7 +51,7 @@
   <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
  </li>
 <li class="">
-  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra–Lévy Itô Decomposition</span></a>
  </li>
 <li class="">
   <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
@@ -96,7 +96,7 @@
 
 <div class="main-text">
 <h1 id="a0000000002">1 Volterra Kernel and Combined Energy Space</h1>
-<p>This layer defines the causal kernel \(K\), the combined energy space \(H_W \times \tilde{H}_J\), the combined divergence \(\delta _{VL}\), and proves the splitting \(D_{VL} = (D_W, \tilde{D}_J)\). </p>
+<p>This layer defines the causal kernel \(K\), the combined energy space \(\mathcal{H}_{VL} = H_W \times \tilde{H}_J\), the combined divergence \(\delta _{VL}\), and proves the splitting \(D_{VL} = (D_W, \tilde{D}_J)\). The splitting is the key structural fact: \(D\) inherits its decomposition from the energy space, not from any Gaussian assumption&#160;[1]. </p>
 <h1 id="a0000000006">1.1 The Volterra Kernel</h1>
 <div class="defn_thmwrapper theorem-style-definition" id="def:VolterraKernel">
   <div class="defn_thmheading">
@@ -107,7 +107,7 @@
     <span class="defn_thmtitle">Volterra kernel</span>
   </div>
   <div class="defn_thmcontent">
-  <p> VolterraKernel A causal kernel \(K : [0,T]^2 \to \mathbb {R}\) with \(K(t,s) = 0\) for \(s {\gt} t\), terminal time \(T {\gt} 0\), and \(L^2\)-integrability: \(\int _0^t K(t,s)^2\, ds {\lt} \infty \) for all \(t \in [0,T]\)&#160;[1]. </p>
+  <p> VolterraKernel A causal kernel \(K : [0,T]^2 \to \mathbb {R}\) with \(K(t,s) = 0\) for \(s {\gt} t\), terminal time \(T {\gt} 0\), and \(L^2\)-integrability: \(\int _0^t K(t,s)^2\, ds {\lt} \infty \) for all \(t \in [0,T]\). The Volterra–Lévy process is \(V_t = \int _0^t K(t,s)\, dL_s\), where \(L\) is a Lévy driver with both continuous and jump components&#160;[1, Definition&#160;3.1]. </p>
 
   </div>
 </div>
@@ -120,7 +120,7 @@
     <span class="defn_thmtitle">Fractional kernel</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.fractionalKernel \(K_H(t,s) = (t-s)^{H-1/2}\) for \(s {\lt} t\), zero otherwise. The rough Volterra kernel with Hurst parameter \(H\). </p>
+  <p> CombinedEnergySpace.fractionalKernel \(K_H(t,s) = (t-s)^{H-1/2}\) for \(s {\lt} t\), zero otherwise. The fractional kernel with Hurst parameter \(H\) governs rough volatility: \(H {\lt} 1/2\) gives rougher-than-Brownian paths, \(H = 1/2\) recovers the Markov (classical) case&#160;[1, Example&#160;2.2]. </p>
 
   </div>
 </div>
@@ -133,7 +133,7 @@
     <span class="theorem_thmtitle">Fractional kernel is causal</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.fractionalKernel_causal def:fractionalKernel \(K_H(t,s) = 0\) for \(s {\gt} t\). </p>
+  <p> CombinedEnergySpace.fractionalKernel_causal def:fractionalKernel \(K_H(t,s) = 0\) for \(s {\gt} t\). Causality: the kernel looks backward only. </p>
 
   </div>
 </div>
@@ -184,7 +184,7 @@
     <span class="defn_thmtitle">Combined energy space</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace The product space \(H_{VL} = H_W \times \tilde{H}_J\) where \(H_W\) is Hilbert (continuous integrands) and \(\tilde{H}_J\) is Banach (jump integrands). Carries divergence operators \(\delta _W : H_W \to L^p(\Omega )\) and \(\tilde{\delta }_J : \tilde{H}_J \to L^p(\Omega )\), centering conditions, expectation linearity, Hölder and duality pairings. </p>
+  <p> CombinedEnergySpace The product space \(\mathcal{H}_{VL} = H_W \times \tilde{H}_J\) where \(H_W = L^2([0,T] \times \Omega , \mathcal{P}, \sigma ^2 ds \otimes d\mathbb {P})\) is Hilbert (continuous integrands, with divergence \(\delta _W(u) = \sigma \int u_t\, dW_t\)) and \(\tilde{H}_J = L^p([0,T] \times \mathbb {R} \times \Omega , dt \otimes \nu (dz) \otimes d\mathbb {P})\) is Banach (jump integrands, with divergence \(\tilde{\delta }_J(h) = \int \! \! \int h(t,z)\, \tilde{N}(dt,dz)\)). Carries centering conditions, expectation linearity, Hölder and duality pairings&#160;[1, Definition&#160;4.1]. </p>
 
   </div>
 </div>
@@ -197,7 +197,7 @@
     <span class="defn_thmtitle">Combined divergence</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.δ_VL def:CombinedEnergySpace \(\delta _{VL}(u,h) := \delta _W(u) + \tilde{\delta }_J(h)\). The combined stochastic integral is a <em>definition</em>, not an axiom. </p>
+  <p> CombinedEnergySpace.δ_VL def:CombinedEnergySpace \(\delta _{VL}(u,h) := \delta _W(u) + \tilde{\delta }_J(h)\). The combined stochastic integral acts componentwise on \(H_W \times \tilde{H}_J\). This is a <em>definition</em>, not an axiom. </p>
 
   </div>
 </div>
@@ -210,7 +210,7 @@
     <span class="theorem_thmtitle">Combined divergence is centered</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.δ_VL_centered def:delta_VL \(\mathbb {E}[\delta _{VL}(u,h)] = 0\). ALGEBRAIC: from <span class="ttfamily">expect_add</span>, <span class="ttfamily">centered_W</span>, <span class="ttfamily">centered_J</span>. </p>
+  <p> CombinedEnergySpace.δ_VL_centered def:delta_VL \(\mathbb {E}[\delta _{VL}(u,h)] = 0\). Both stochastic integrals are centered (\(\mathbb {E}[\delta _W(u)] = 0\), \(\mathbb {E}[\tilde{\delta }_J(h)] = 0\)), and expectation distributes over addition. ALGEBRAIC: from <span class="ttfamily">expect_add</span>, <span class="ttfamily">centered_W</span>, <span class="ttfamily">centered_J</span>. </p>
 
   </div>
 </div>
@@ -235,7 +235,7 @@
     <span class="defn_thmtitle">Continuous operator derivative</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.D_W def:CombinedEnergySpace \(D_W F\) is defined by \(\langle D_W F, u \rangle := \mathbb {E}[F \cdot \delta _W(u)]\). </p>
+  <p> CombinedEnergySpace.D_W def:CombinedEnergySpace \(D_W F\) is defined by \(\langle D_W F, u \rangle := \mathbb {E}[F \cdot \delta _W(u)]\), the \(D = \delta ^*\) construction restricted to the Hilbert component \(H_W\)&#160;[1, Definition&#160;4.2]. This is the continuous Malliavin-type derivative. </p>
 
   </div>
 </div>
@@ -248,7 +248,7 @@
     <span class="defn_thmtitle">Jump operator derivative</span>
   </div>
   <div class="defn_thmcontent">
-  <p> CombinedEnergySpace.D_J def:CombinedEnergySpace \(\tilde{D}_J F\) is defined by \(\langle \tilde{D}_J F, h \rangle := \mathbb {E}[F \cdot \tilde{\delta }_J(h)]\). </p>
+  <p> CombinedEnergySpace.D_J def:CombinedEnergySpace \(\tilde{D}_J F\) is defined by \(\langle \tilde{D}_J F, h \rangle := \mathbb {E}[F \cdot \tilde{\delta }_J(h)]\), the \(D = \delta ^*\) construction restricted to the Banach component \(\tilde{H}_J\)&#160;[1, Definition&#160;4.2]. This is the jump operator derivative (a Banach-space analogue of the Picard difference operator). </p>
 
   </div>
 </div>
@@ -261,7 +261,7 @@
     <span class="theorem_thmtitle">\(D_{VL}\) splitting (Proposition 3.4)</span>
   </div>
   <div class="theorem_thmcontent">
-  <p> CombinedEnergySpace.D_VL_split def:D_W, def:D_J, def:delta_VL \(\langle D_W F, u \rangle + \langle \tilde{D}_J F, h \rangle = \mathbb {E}[F \cdot \delta _{VL}(u,h)]\). ALGEBRAIC: from <span class="ttfamily">mk_dual</span> specs and <span class="ttfamily">holder_add_right</span>. </p>
+  <p> CombinedEnergySpace.D_VL_split def:D_W, def:D_J, def:delta_VL \(\langle D_W F, u \rangle + \langle \tilde{D}_J F, h \rangle = \mathbb {E}[F \cdot \delta _{VL}(u,h)]\). The combined operator derivative splits automatically into continuous and jump components, inherited from the energy space decomposition. This is a <em>theorem</em>, not an assumption—the splitting is forced by the linearity of the Hölder pairing&#160;[1, Proposition&#160;3.4]. ALGEBRAIC: from <span class="ttfamily">mk_dual</span> specs and <span class="ttfamily">holder_add_right</span>. </p>
 
   </div>
 </div>
