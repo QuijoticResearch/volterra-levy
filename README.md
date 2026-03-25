@@ -6,6 +6,8 @@ Lean 4 / Mathlib formalization of the Volterra-Levy layer from:
 
 Zero sorry. Zero axioms. Compiles against Mathlib v4.28.0.
 
+[Blueprint and dependency graph](https://quijoticresearch.github.io/volterra-levy/blueprint/)
+
 ## What this formalizes
 
 The kernel-weighted defect theory, two-parameter VRNC, and hedging decomposition for markets driven by Volterra-Levy processes (rough volatility + jumps).
