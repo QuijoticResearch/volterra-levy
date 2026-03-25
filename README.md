@@ -52,18 +52,36 @@ Every theorem in the file falls into one of three categories:
 
 ## Dependency chain
 
-```
-OperatorDerivative.lean  (Hilbert D = delta*, Leibniz iff chain rule)
-  -> BanachLevyComplete.lean  (Banach D_L = delta_L*, Leibniz defect, obstruction)
-    -> VolterraLevy.lean  (THIS REPO: kernel-weighted defect, VRNC, hedging)
+```mermaid
+graph TD
+    M[Mathlib v4.28.0<br><i>InnerProductSpace, L2Space, Pow.Real</i>]
+    OD[<b>operator-derivative-lean</b><br>Hilbert D = delta*<br>Leibniz iff chain rule<br>Ito correction]
+    BL[<b>banach-levy-lean</b><br>Banach D_L = delta_L*<br>Leibniz defect = jump remainder<br>Obstruction theorem]
+    VL[<b>volterra-levy</b><br>Kernel-weighted defect<br>VRNC pricing constraint<br>Hedging decomposition]
+
+    M --> OD
+    M --> BL
+    M --> VL
+    OD -->|Hilbert Ito formula| BL
+    BL -->|Banach defect theory| VL
+    OD -->|operator_ito_decomposition| VL
+
+    click OD "https://github.com/QuijoticResearch/operator-derivative-lean"
+    click BL "https://github.com/QuijoticResearch/banach-levy-lean"
+    click VL "https://github.com/QuijoticResearch/volterra-levy"
+
+    style VL fill:#e8f4e8,stroke:#2d7d2d,stroke-width:2px
+    style OD fill:#e8e8f4,stroke:#2d2d7d
+    style BL fill:#e8e8f4,stroke:#2d2d7d
+    style M fill:#f4f4f4,stroke:#999
 ```
 
 The dependency is *architectural*, not via Lean imports. Each file imports only Mathlib. The operator derivative framework from the upstream files is encoded through the structure-field pattern described above.
 
 | Repo | What it proves |
 |------|---------------|
-| [operator-derivative](https://github.com/QuijoticResearch/operator-derivative-lean) | D = delta* in Hilbert space, Leibniz rule iff chain rule, Ito correction |
-| [banach-levy](https://github.com/QuijoticResearch/banach-levy-lean) | D_L = delta_L* in Banach space, Leibniz defect = jump remainder |
+| [operator-derivative-lean](https://github.com/QuijoticResearch/operator-derivative-lean) | D = delta* in Hilbert space, Leibniz rule iff chain rule, Ito correction |
+| [banach-levy-lean](https://github.com/QuijoticResearch/banach-levy-lean) | D_L = delta_L* in Banach space, Leibniz defect = jump remainder |
 | **volterra-levy** (this repo) | Kernel-weighted defect, VRNC, hedging decomposition |
 
 ## Building
