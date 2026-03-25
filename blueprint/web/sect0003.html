@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pricing and Hedging</title>
+<link rel="next" href="sect0004.html" title="Bibliography" />
+<link rel="prev" href="sect0002.html" title="The Kernel-Weighted Defect" />
+<link rel="up" href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">The Boundary of Hedgeability: Volterra-Lévy Markets</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Volterra Kernel and Combined Energy Space</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">1.1</span> <span class="toc_entry">The Volterra Kernel</span></a>
+ </li>
+<li class="">
+  <a href="sect0001.html#a0000000009"><span class="toc_ref">1.2</span> <span class="toc_entry">The Combined Energy Space</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">The Kernel-Weighted Defect</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000015"><span class="toc_ref">2.4</span> <span class="toc_entry">Defect Vanishing</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Pricing and Hedging</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sect0003.html#a0000000016"><span class="toc_ref">3.1</span> <span class="toc_entry">Bracket Invariance</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000017"><span class="toc_ref">3.2</span> <span class="toc_entry">The Two-Parameter VRNC</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000018"><span class="toc_ref">3.3</span> <span class="toc_entry">Scaling Law for Fractional Kernels</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000019"><span class="toc_ref">3.4</span> <span class="toc_entry">Hedging Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000020"><span class="toc_ref">3.5</span> <span class="toc_entry">Master Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref"></span> <span class="toc_entry">Bibliography</span></a>
+ </li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000004">3 Pricing and Hedging</h1>
+<p>Bracket invariance, the two-parameter VRNC, the hedging decomposition, and the scaling law for fractional kernels. </p>
+<h1 id="a0000000016">3.1 Bracket Invariance</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:BracketData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">28</span>
+    <span class="defn_thmtitle">Bracket data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> BracketData def:VolterraKernel Carries \(\sigma _L\), the kernel-squared integral \(\int _0^t K(T,s)^2\, ds\), and the bracket function with \(\langle V^c \rangle _t = \sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:bracket_deterministic">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">29</span>
+    <span class="theorem_thmtitle">Bracket is deterministic</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.bracket_deterministic def:BracketData \(\exists c,\; \langle V^c \rangle _t = c\). ALGEBRAIC: the witness is \(\sigma _L^2 \cdot \int K^2\, ds\) from <span class="ttfamily">bracket_eq</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000032">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Witness from <span class="ttfamily">bracket_eq</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:bracket_measure_invariant">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">30</span>
+    <span class="theorem_thmtitle">Bracket measure invariance (Theorem 5.x)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.bracket_measure_invariant def:BracketData \(\langle V^c \rangle _t = \sigma _L^2 \cdot \int _0^t K(T,s)^2\, ds\). The RHS has no \(\omega \)-dependence: deterministic, hence identical under \(P\) and \(Q\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000033">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Immediate from <span class="ttfamily">bracket_eq</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:roughness_invariant">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">31</span>
+    <span class="theorem_thmtitle">Roughness invariance</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.roughness_invariant thm:bracket_measure_invariant Both time points \(t_1, t_2\) have the deterministic formula, so the log-log slope (and hence \(H\)) is the same under any equivalent measure. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000034">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Two applications of <span class="ttfamily">bracket_eq</span>.</p>
+
+  </div>
+</div>
+<h1 id="a0000000017">3.2 The Two-Parameter VRNC</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:GirsanovData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">32</span>
+    <span class="defn_thmtitle">Girsanov data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> GirsanovData Continuous and jump market prices of risk \(\theta ^W\), \(\theta ^J\), diffusion coefficient \(\sigma _L\), and jump drift \(\Phi ^J\). </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:effectiveDriftRate">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">33</span>
+    <span class="defn_thmtitle">Effective drift rate</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.effectiveDriftRate def:GirsanovData \(\Psi := -\sigma _L \theta ^W + \Phi ^J\). Defined, not assumed. </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:VRNCData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">34</span>
+    <span class="defn_thmtitle">VRNC data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> VRNCData def:GirsanovData, def:VolterraKernel Extends Girsanov data with kernel, drift rate \(\mu \), risk-free rate \(r\), Lévy exposure \(\lambda \), memory loading \(\beta \), and drift functional \(B_t^\theta = \int _0^t K(t,s)\Psi (s)\, ds\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:VRNC_determines_Psi">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">35</span>
+    <span class="theorem_thmtitle">\(\Psi \) formula</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.VRNC_determines_Psi def:effectiveDriftRate \(\Psi _t = -\sigma _L \theta ^W_t + \Phi ^J_t\). ALGEBRAIC: unfolds the definition. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000035">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">rfl</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:VRNC_continuous_recovery">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">36</span>
+    <span class="theorem_thmtitle">VRNC continuous recovery</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.VRNC_continuous_recovery def:effectiveDriftRate When \(\nu = 0\): \(\Psi = -\sigma _L \theta ^W\). ALGEBRAIC: substitutes \(\Phi ^J = 0\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000036">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">simp [effectiveDriftRate, hno_jumps]</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:continuous_from_jump_choice">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">37</span>
+    <span class="theorem_thmtitle">\(\theta ^W\) from \(\Psi \) and \(\Phi ^J\)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.continuous_from_jump_choice def:effectiveDriftRate \(\theta ^W_t = (\Phi ^J_t - \Psi ) / \sigma _L\). ALGEBRAIC: pure algebra (<span class="ttfamily">field_simp</span> + <span class="ttfamily">linarith</span>). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000037">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Unfold, <span class="ttfamily">field_simp</span>, <span class="ttfamily">linarith</span>.</p>
+
+  </div>
+</div>
+<h1 id="a0000000018">3.3 Scaling Law for Fractional Kernels</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:DefectScalingData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">38</span>
+    <span class="defn_thmtitle">Defect scaling data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> DefectScalingData def:NuMomentStructure Hurst parameter \(H {\gt} 0\), terminal time \(T {\gt} 0\), moment structure \(\nu \), convergence condition. </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:scalingExponent">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">39</span>
+    <span class="defn_thmtitle">Scaling exponent</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.scalingExponent def:DefectScalingData \(2H - 1 + 1/p\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:scalingBound_pos">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">40</span>
+    <span class="theorem_thmtitle">Scaling bound positive</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.scalingBound_pos def:DefectScalingData, def:scalingExponent \(0 {\lt} T^{2H-1+1/p} \cdot (c_\gamma /(2p-\gamma ))^{1/p}\). CONCRETE: from <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">div_pos</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000038">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">mul_pos</span> with <span class="ttfamily">rpow_pos_of_pos</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:markov_scaling_exponent">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">41</span>
+    <span class="theorem_thmtitle">Markov scaling recovery</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.markov_scaling_exponent def:scalingExponent \(H = 1/2 \implies \) exponent \(= 1/p\). ALGEBRAIC: substitutes \(H = 1/2\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000039">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">simp [scalingExponent, hH]</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:rough_exponent_less">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">42</span>
+    <span class="theorem_thmtitle">Roughness amplification</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.rough_exponent_less def:scalingExponent \(H {\lt} 1/2 \implies \) exponent \({\lt} 1/p\). ALGEBRAIC: inequality from \(H {\lt} 1/2\) in the formula. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000040">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">simp [scalingExponent]; linarith</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:convergence_condition_2p">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">43</span>
+    <span class="theorem_thmtitle">Convergence condition for \(r = 2p\)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.convergence_condition_2p Convergence iff \(H {\gt} (p-1)/(2p)\). CONCRETE: via <span class="ttfamily">nlinarith</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000041">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Unfold, split into two directions, each closed by <span class="ttfamily">nlinarith</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:quadratic_defect_exact">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">44</span>
+    <span class="theorem_thmtitle">Quadratic defect exactness</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.quadratic_defect_exact_volterra \((K \cdot z)^2 = K^2 \cdot z^2\). ALGEBRAIC: <span class="ttfamily">ring</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000042">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">ring</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:varianceSwapIsometry_pos">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">45</span>
+    <span class="theorem_thmtitle">Variance swap positivity</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.varianceSwapIsometry_pos \(0 {\lt} T^{4H-1}/(4H-1) \cdot \nu _4\). CONCRETE: from <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">div_pos</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000043">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">mul_pos</span> with <span class="ttfamily">div_pos</span> and <span class="ttfamily">rpow_pos_of_pos</span>.</p>
+
+  </div>
+</div>
+<h1 id="a0000000019">3.4 Hedging Decomposition</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:HedgingDecomposition">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">46</span>
+    <span class="defn_thmtitle">Hedging decomposition</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.HedgingDecomposition def:CombinedEnergySpace Claim \(=\) fair value \(+\) \(\delta _W\)(brownian) \(+\) \(\tilde{\delta }_J\)(\(\nu \)-singular) \(+\) \(\tilde{\delta }_J\)(defect). Three-level hedge with decomposition identity. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:continuous_hedge_absorbs_brownian">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">47</span>
+    <span class="theorem_thmtitle">Hedging residual is jump-only</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.continuous_hedge_absorbs_brownian def:HedgingDecomposition \(\text{claim} - \text{fair\_ value} - \delta _W(\text{brownian}) = \tilde{\delta }_J(\text{singular}) + \tilde{\delta }_J(\text{defect})\). ALGEBRAIC: from <span class="ttfamily">decomp_identity</span> via <span class="ttfamily">abel</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000044">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with <span class="ttfamily">decomp_identity</span>, close with <span class="ttfamily">abel</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:perfect_hedging_without_jumps">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">48</span>
+    <span class="theorem_thmtitle">Perfect hedging without jumps</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.perfect_hedging_without_jumps def:HedgingDecomposition When defect integrand \(= 0\): \(\tilde{\delta }_J(\text{defect}) = 0\). ALGEBRAIC: from <span class="ttfamily">map_zero</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000045">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with zero hypothesis, apply <span class="ttfamily">map_zero</span>.</p>
+
+  </div>
+</div>
+<h1 id="a0000000020">3.5 Master Theorem</h1>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:complete_volterra_levy_framework">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">49</span>
+    <span class="theorem_thmtitle">Complete Volterra-Lévy framework</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.complete_volterra_levy_framework thm:D_VL_split, thm:two_regime_decomposition, thm:defect_vanishes_without_jumps, thm:VRNC_continuous_recovery, thm:markov_scaling_exponent, thm:rough_exponent_less, thm:quadratic_defect_exact, thm:perfect_hedging_without_jumps Eight-conjunct master theorem packaging the full pipeline: splitting, two-regime decomposition, defect vanishing, VRNC recovery, Markov recovery, roughness amplification, quadratic exactness, perfect hedging. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000046">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Each conjunct delegates to its individual theorem.</p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0002.html" title="The Kernel-Weighted Defect"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0004.html" title="Bibliography"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

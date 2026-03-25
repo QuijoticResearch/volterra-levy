@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Kernel-Weighted Defect</title>
+<link rel="next" href="sect0003.html" title="Pricing and Hedging" />
+<link rel="prev" href="sect0001.html" title="Volterra Kernel and Combined Energy Space" />
+<link rel="up" href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">The Boundary of Hedgeability: Volterra-Lévy Markets</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Volterra Kernel and Combined Energy Space</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">1.1</span> <span class="toc_entry">The Volterra Kernel</span></a>
+ </li>
+<li class="">
+  <a href="sect0001.html#a0000000009"><span class="toc_ref">1.2</span> <span class="toc_entry">The Combined Energy Space</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active current">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">The Kernel-Weighted Defect</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000015"><span class="toc_ref">2.4</span> <span class="toc_entry">Defect Vanishing</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Pricing and Hedging</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000016"><span class="toc_ref">3.1</span> <span class="toc_entry">Bracket Invariance</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000017"><span class="toc_ref">3.2</span> <span class="toc_entry">The Two-Parameter VRNC</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000018"><span class="toc_ref">3.3</span> <span class="toc_entry">Scaling Law for Fractional Kernels</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000019"><span class="toc_ref">3.4</span> <span class="toc_entry">Hedging Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000020"><span class="toc_ref">3.5</span> <span class="toc_entry">Master Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref"></span> <span class="toc_entry">Bibliography</span></a>
+ </li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000003">2 The Kernel-Weighted Defect</h1>
+<p>The Volterra-Lévy Itô decomposition, the \(\nu \)-singular/\(\nu \)-regular splitting, the defect vanishing characterization, and \(\nu \)-singularity persistence. </p>
+<h1 id="a0000000012">2.1 Process, Payoff, and Bridge</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:VolterraProcessData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">11</span>
+    <span class="defn_thmtitle">Volterra process data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.VolterraProcessData def:CombinedEnergySpace Data for a Volterra process: \(V_T = \delta _W(\text{kernel\_ cont}) + \tilde{\delta }_J(\text{kernel\_ jump})\). </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:SmoothPayoff">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">12</span>
+    <span class="defn_thmtitle">Smooth payoff</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.SmoothPayoff def:CombinedEnergySpace A smooth function \(f\) applied to \(V_T\). Carries \(f\), \(f'\), the Taylor remainder \(g_f^K(v,z) = f(v+Kz) - f(v) - f'(v)Kz\), with \(g_f^K(v,0) = 0\) and a uniform quadratic bound \(|g_f^K(v,z)| \leq C_{\mathrm{defect}} \cdot z^2\). </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:HilbertJumpBridge">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">13</span>
+    <span class="defn_thmtitle">Hilbert-jump bridge</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.HilbertJumpBridge def:VolterraProcessData, def:SmoothPayoff Connects the Hilbert Itô formula (OperatorDerivative.lean) and the Banach defect theory (BanachLevyComplete.lean) on \(H_W \times \tilde{H}_J\). Carries the ONE stochastic analysis input (<span class="ttfamily">levy_ito</span>: the Lévy-Itô formula from Applebaum&#160;[2], Theorem&#160;4.4.7), the Taylor split, the defect coherence, and the payoff-process connection. </p>
+
+  </div>
+</div>
+<h1 id="a0000000013">2.2 The Volterra-Lévy Itô Decomposition</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:kernel_weighted_defect">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">14</span>
+    <span class="defn_thmtitle">Kernel-weighted defect</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.kernel_weighted_defect def:HilbertJumpBridge \(\Gamma _V^f := \tilde{\delta }_J(g_f^K)\), the compensated Poisson integral of the defect integrand. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:defect_is_taylor_remainder">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">15</span>
+    <span class="theorem_thmtitle">Defect is Taylor remainder</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.defect_is_taylor_remainder def:HilbertJumpBridge, def:SmoothPayoff \(g_f^K(v,z) = f(v + K \cdot z) - f(v) - f'(v) \cdot K \cdot z\). ALGEBRAIC: unfolds <span class="ttfamily">defect_coherence</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000021">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Immediate from the bridge’s <span class="ttfamily">defect_coherence</span> field.</p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:ito_composition">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">16</span>
+    <span class="lemma_thmtitle">Itô composition</span>
+  </div>
+  <div class="lemma_thmcontent">
+  <p> CombinedEnergySpace.ito_composition def:HilbertJumpBridge, def:kernel_weighted_defect \(f(V_T) = f(0) + \delta _W(f' \cdot K) + \tilde{\delta }_J(\text{linear}) + \Gamma _V^f + \text{correction}\). ALGEBRAIC: from <span class="ttfamily">levy_ito</span>, <span class="ttfamily">taylor_split</span>, and <span class="ttfamily">map_add</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000022">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with <span class="ttfamily">levy_ito</span>, substitute <span class="ttfamily">taylor_split</span>, apply <span class="ttfamily">map_add</span>, close with <span class="ttfamily">abel</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:volterra_levy_ito_decomposition">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">17</span>
+    <span class="theorem_thmtitle">Volterra-Lévy Itô decomposition</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.volterra_levy_ito_decomposition lem:ito_composition </p>
+<div class="displaymath" id="a0000000023">
+  \[  f(V_T) - f(0) = \delta _W(f' \cdot K) + \tilde{\delta }_J(\text{linear}) + \tilde{\delta }_J(g_f^K) + \text{correction}  \]
+</div>
+<p> This is a <b class="bfseries">theorem</b>, not a structure field. ALGEBRAIC: from <span class="ttfamily">ito_composition</span> via <span class="ttfamily">abel</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000024">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Apply <span class="ttfamily">ito_composition</span>, rearrange with <span class="ttfamily">abel</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:two_regime_decomposition">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">18</span>
+    <span class="theorem_thmtitle">Two-regime decomposition (Theorem 4.2)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.two_regime_decomposition def:kernel_weighted_defect, def:HilbertJumpBridge \(\tilde{\delta }_J(h_f^K) = \tilde{\delta }_J(\text{linear}) + \Gamma _V^f\). ALGEBRAIC: from <span class="ttfamily">taylor_split</span> and <span class="ttfamily">map_add</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000025">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with <span class="ttfamily">taylor_split</span>, apply <span class="ttfamily">map_add</span>.</p>
+
+  </div>
+</div>
+<h1 id="a0000000014">2.3 Moment Structure and Singularity</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:NuMomentStructure">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">19</span>
+    <span class="defn_thmtitle">\(\nu \)-moment structure</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> NuMomentStructure Captures the integrability dichotomy for stable-type measures with index \(\gamma \in (1,2)\): \(\int |z|^p\, \nu (dz) = \infty \) for \(p {\lt} \gamma \), \(\int |z|^{2p}\, \nu (dz) {\lt} \infty \) for \(2p {\gt} \gamma \). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:small_jump_2p_moment_pos">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">20</span>
+    <span class="theorem_thmtitle">2p-th moment positivity</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> NuMomentStructure.small_jump_2p_moment_pos def:NuMomentStructure \(0 {\lt} 2c_\gamma / (2p - \gamma )\). CONCRETE: from <span class="ttfamily">div_pos</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000026">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with <span class="ttfamily">small_jump_2p_moment_eq</span>, apply <span class="ttfamily">div_pos</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:p_moment_divergence_exponent">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">21</span>
+    <span class="theorem_thmtitle">\(p\)-moment divergence</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> NuMomentStructure.p_moment_divergence_exponent def:NuMomentStructure \(p - \gamma {\lt} 0\). CONCRETE: matches <span class="ttfamily">stable_small_jump_moment_diverges</span> in BanachLevyComplete.lean&#160;[4]. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000027">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">linarith [hp_upper]</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:two_p_gt_gamma">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">22</span>
+    <span class="theorem_thmtitle">\(2p\)-moment convergence</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> NuMomentStructure.two_p_gt_γ def:NuMomentStructure \(2p {\gt} \gamma \). CONCRETE: matches <span class="ttfamily">stable_small_jump_moment_finite</span> in BanachLevyComplete.lean&#160;[4]. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000028">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">linarith [hp_lower, hγ_upper]</span>.</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:defect_norm_from_uniform_bound">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">23</span>
+    <span class="theorem_thmtitle">Defect norm from uniform bound</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.defect_norm_from_uniform_bound def:SmoothPayoff, def:NuMomentStructure \(0 {\lt} C_{\mathrm{defect}}^p \cdot \int |z|^{2p}\, \nu (dz)\). CONCRETE: connects the uniform Taylor bound to the scaling law. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000029">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">mul_pos</span> with <span class="ttfamily">rpow_pos_of_pos</span> and <span class="ttfamily">small_jump_2p_moment_pos</span>.</p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:NuSingularityData">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">24</span>
+    <span class="defn_thmtitle">\(\nu \)-singularity data</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> NuSingularityData The kernel norm \(\int _0^T |K(T,s)|^p\, ds {\gt} 0\) and truncated \(z\)-moments \(\int _{|z| \leq R} |z|^p\, \nu (dz)\) which are unbounded as \(R \to \infty \). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:nu_singularity_persists">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">25</span>
+    <span class="theorem_thmtitle">\(\nu \)-singularity persists (Proposition 6.x)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.nu_singularity_persists def:NuMomentStructure, def:NuSingularityData \(\forall M,\; \exists R,\; \| K\| _p \cdot \int _{|z| \leq R} |z|^p\, \nu (dz) {\gt} M\). The product norm of \(K(T,\cdot )z\) exceeds any bound, hence \(V_T \notin \mathrm{im}(\tilde{\delta }_J)\). CONCRETE: from <span class="ttfamily">mul_lt_mul_of_pos_left</span> and <span class="ttfamily">field_simp</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000030">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Divide \(M\) by <span class="ttfamily">kernel_p_norm</span>, use <span class="ttfamily">truncated_z_moment_unbounded</span>, multiply back.</p>
+
+  </div>
+</div>
+<h1 id="a0000000015">2.4 Defect Vanishing</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:JumpPresence">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">26</span>
+    <span class="defn_thmtitle">Jump presence</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.JumpPresence def:HilbertJumpBridge Whether jumps are present. When <span class="ttfamily">has_jumps = false</span>, the defect integrand is zero (justified by <span class="ttfamily">defect_at_zero</span>: the Taylor remainder vanishes at \(z = 0\)). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:defect_vanishes_without_jumps">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">27</span>
+    <span class="theorem_thmtitle">Defect vanishes without jumps (Proposition 7.x)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.defect_vanishes_without_jumps_volterra def:JumpPresence, def:kernel_weighted_defect When \(\nu = 0\): \(\Gamma _V^f = 0\). ALGEBRAIC: from <span class="ttfamily">no_jumps_zero_defect</span> and <span class="ttfamily">map_zero</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000031">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Rewrite with zero defect integrand, apply <span class="ttfamily">map_zero</span>.</p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sect0001.html" title="Volterra Kernel and Combined Energy Space"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0003.html" title="Pricing and Hedging"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>

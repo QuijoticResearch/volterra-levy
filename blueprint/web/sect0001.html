@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['$','$'], ['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Volterra Kernel and Combined Energy Space</title>
+<link rel="next" href="sect0002.html" title="The Kernel-Weighted Defect" />
+<link rel="prev" href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets" />
+<link rel="up" href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/extra_styles.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">The Boundary of Hedgeability: Volterra-Lévy Markets</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class=" active current">
+  <a href="sect0001.html"><span class="toc_ref">1</span> <span class="toc_entry">Volterra Kernel and Combined Energy Space</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sect0001.html#a0000000006"><span class="toc_ref">1.1</span> <span class="toc_entry">The Volterra Kernel</span></a>
+ </li>
+<li class="">
+  <a href="sect0001.html#a0000000009"><span class="toc_ref">1.2</span> <span class="toc_entry">The Combined Energy Space</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">2</span> <span class="toc_entry">The Kernel-Weighted Defect</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0002.html#a0000000012"><span class="toc_ref">2.1</span> <span class="toc_entry">Process, Payoff, and Bridge</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000013"><span class="toc_ref">2.2</span> <span class="toc_entry">The Volterra-Lévy Itô Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000014"><span class="toc_ref">2.3</span> <span class="toc_entry">Moment Structure and Singularity</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html#a0000000015"><span class="toc_ref">2.4</span> <span class="toc_entry">Defect Vanishing</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">3</span> <span class="toc_entry">Pricing and Hedging</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0003.html#a0000000016"><span class="toc_ref">3.1</span> <span class="toc_entry">Bracket Invariance</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000017"><span class="toc_ref">3.2</span> <span class="toc_entry">The Two-Parameter VRNC</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000018"><span class="toc_ref">3.3</span> <span class="toc_entry">Scaling Law for Fractional Kernels</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000019"><span class="toc_ref">3.4</span> <span class="toc_entry">Hedging Decomposition</span></a>
+ </li>
+<li class="">
+  <a href="sect0003.html#a0000000020"><span class="toc_ref">3.5</span> <span class="toc_entry">Master Theorem</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0004.html"><span class="toc_ref"></span> <span class="toc_entry">Bibliography</span></a>
+ </li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="a0000000002">1 Volterra Kernel and Combined Energy Space</h1>
+<p>This layer defines the causal kernel \(K\), the combined energy space \(H_W \times \tilde{H}_J\), the combined divergence \(\delta _{VL}\), and proves the splitting \(D_{VL} = (D_W, \tilde{D}_J)\). </p>
+<h1 id="a0000000006">1.1 The Volterra Kernel</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:VolterraKernel">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">1</span>
+    <span class="defn_thmtitle">Volterra kernel</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> VolterraKernel A causal kernel \(K : [0,T]^2 \to \mathbb {R}\) with \(K(t,s) = 0\) for \(s {\gt} t\), terminal time \(T {\gt} 0\), and \(L^2\)-integrability: \(\int _0^t K(t,s)^2\, ds {\lt} \infty \) for all \(t \in [0,T]\)&#160;[1]. </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:fractionalKernel">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">2</span>
+    <span class="defn_thmtitle">Fractional kernel</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.fractionalKernel \(K_H(t,s) = (t-s)^{H-1/2}\) for \(s {\lt} t\), zero otherwise. The rough Volterra kernel with Hurst parameter \(H\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:fractionalKernel_causal">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">3</span>
+    <span class="theorem_thmtitle">Fractional kernel is causal</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.fractionalKernel_causal def:fractionalKernel \(K_H(t,s) = 0\) for \(s {\gt} t\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000007">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>By definition: the <span class="ttfamily">if</span> branch is false when \(s \geq t\).</p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:fractionalKernel_nonneg">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">4</span>
+    <span class="theorem_thmtitle">Fractional kernel is nonneg</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.fractionalKernel_nonneg def:fractionalKernel \(K_H(t,s) \geq 0\) for \(H \geq 1/2\) and \(s {\lt} t\). </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000008">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>From <span class="ttfamily">Real.rpow_nonneg</span> applied to \(t - s {\gt} 0\).</p>
+
+  </div>
+</div>
+<h1 id="a0000000009">1.2 The Combined Energy Space</h1>
+<div class="defn_thmwrapper theorem-style-definition" id="def:CombinedEnergySpace">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">5</span>
+    <span class="defn_thmtitle">Combined energy space</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace The product space \(H_{VL} = H_W \times \tilde{H}_J\) where \(H_W\) is Hilbert (continuous integrands) and \(\tilde{H}_J\) is Banach (jump integrands). Carries divergence operators \(\delta _W : H_W \to L^p(\Omega )\) and \(\tilde{\delta }_J : \tilde{H}_J \to L^p(\Omega )\), centering conditions, expectation linearity, Hölder and duality pairings. </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:delta_VL">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">6</span>
+    <span class="defn_thmtitle">Combined divergence</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.δ_VL def:CombinedEnergySpace \(\delta _{VL}(u,h) := \delta _W(u) + \tilde{\delta }_J(h)\). The combined stochastic integral is a <em>definition</em>, not an axiom. </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:delta_VL_centered">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">7</span>
+    <span class="theorem_thmtitle">Combined divergence is centered</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.δ_VL_centered def:delta_VL \(\mathbb {E}[\delta _{VL}(u,h)] = 0\). ALGEBRAIC: from <span class="ttfamily">expect_add</span>, <span class="ttfamily">centered_W</span>, <span class="ttfamily">centered_J</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000010">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p><span class="ttfamily">simp [δ_VL, expect_add, centered_W, centered_J, add_zero]</span>.</p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:D_W">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">8</span>
+    <span class="defn_thmtitle">Continuous operator derivative</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.D_W def:CombinedEnergySpace \(D_W F\) is defined by \(\langle D_W F, u \rangle := \mathbb {E}[F \cdot \delta _W(u)]\). </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:D_J">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">9</span>
+    <span class="defn_thmtitle">Jump operator derivative</span>
+  </div>
+  <div class="defn_thmcontent">
+  <p> CombinedEnergySpace.D_J def:CombinedEnergySpace \(\tilde{D}_J F\) is defined by \(\langle \tilde{D}_J F, h \rangle := \mathbb {E}[F \cdot \tilde{\delta }_J(h)]\). </p>
+
+  </div>
+</div>
+<div class="theorem_thmwrapper theorem-style-plain" id="thm:D_VL_split">
+  <div class="theorem_thmheading">
+    <span class="theorem_thmcaption">
+    Theorem
+    </span>
+    <span class="theorem_thmlabel">10</span>
+    <span class="theorem_thmtitle">\(D_{VL}\) splitting (Proposition 3.4)</span>
+  </div>
+  <div class="theorem_thmcontent">
+  <p> CombinedEnergySpace.D_VL_split def:D_W, def:D_J, def:delta_VL \(\langle D_W F, u \rangle + \langle \tilde{D}_J F, h \rangle = \mathbb {E}[F \cdot \delta _{VL}(u,h)]\). ALGEBRAIC: from <span class="ttfamily">mk_dual</span> specs and <span class="ttfamily">holder_add_right</span>. </p>
+
+  </div>
+</div>
+<div class="proof_wrapper" id="a0000000011">
+  <div class="proof_heading">
+    <span class="proof_caption">
+    Proof
+    </span>
+    <span class="expand-proof">â–¼</span>
+  </div>
+  <div class="proof_content">
+  <p>Unfold \(D_W\), \(D_J\), \(\delta _{VL}\) via <span class="ttfamily">simp only</span>, then apply <span class="ttfamily">holder_add_right</span>.</p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="index.html" title="The Boundary of Hedgeability: Volterra-Lévy Markets"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sect0002.html" title="The Kernel-Weighted Defect"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>
