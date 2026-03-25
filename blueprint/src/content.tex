@@ -10,7 +10,7 @@ This layer defines the causal kernel $K$, the combined energy space $H_W \times 
 \begin{defn}[Volterra kernel]\label{def:VolterraKernel}
 \lean{VolterraKernel}
 \leanok
-A causal kernel $K : [0,T]^2 \to \mathbb{R}$ with $K(t,s) = 0$ for $s > t$, terminal time $T > 0$, and $L^2$-integrability: $\int_0^t K(t,s)^2\,ds < \infty$ for all $t \in [0,T]$~\cite{bib:fontes2026}.
+A causal kernel $K : [0,T]^2 \to \mathbb{R}$ with $K(t,s) = 0$ for $s > t$, terminal time $T > 0$, and $L^2$-integrability: $\int_0^t K(t,s)^2\,ds < \infty$ for all $t \in [0,T]$~[1].
 \end{defn}
 
 \begin{defn}[Fractional kernel]\label{def:fractionalKernel}
@@ -105,7 +105,7 @@ A smooth function $f$ applied to $V_T$. Carries $f$, $f'$, the Taylor remainder 
 \lean{CombinedEnergySpace.HilbertJumpBridge}
 \leanok
 \uses{def:VolterraProcessData, def:SmoothPayoff}
-Connects the Hilbert It\^o formula (OperatorDerivative.lean) and the Banach defect theory (BanachLevyComplete.lean) on $H_W \times \tilde{H}_J$. Carries the ONE stochastic analysis input (\texttt{levy\_ito}: the L\'evy-It\^o formula from Applebaum~\cite{bib:applebaum2009}, Theorem~4.4.7), the Taylor split, the defect coherence, and the payoff-process connection.
+Connects the Hilbert It\^o formula (OperatorDerivative.lean) and the Banach defect theory (BanachLevyComplete.lean) on $H_W \times \tilde{H}_J$. Carries the ONE stochastic analysis input (\texttt{levy\_ito}: the L\'evy-It\^o formula from Applebaum~[2], Theorem~4.4.7), the Taylor split, the defect coherence, and the payoff-process connection.
 \end{defn}
 
 \section{The Volterra-L\'evy It\^o Decomposition}
@@ -172,7 +172,7 @@ $0 < 2c_\gamma / (2p - \gamma)$. CONCRETE: from \texttt{div\_pos}.
 \lean{NuMomentStructure.p_moment_divergence_exponent}
 \leanok
 \uses{def:NuMomentStructure}
-$p - \gamma < 0$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_diverges} in BanachLevyComplete.lean~\cite{bib:banachlevy}.
+$p - \gamma < 0$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_diverges} in BanachLevyComplete.lean~[4].
 \end{theorem}
 \begin{proof}\leanok \texttt{linarith [hp\_upper]}.\end{proof}
 
@@ -180,7 +180,7 @@ $p - \gamma < 0$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_diverge
 \lean{NuMomentStructure.two_p_gt_γ}
 \leanok
 \uses{def:NuMomentStructure}
-$2p > \gamma$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_finite} in BanachLevyComplete.lean~\cite{bib:banachlevy}.
+$2p > \gamma$. CONCRETE: matches \texttt{stable\_small\_jump\_moment\_finite} in BanachLevyComplete.lean~[4].
 \end{theorem}
 \begin{proof}\leanok \texttt{linarith [hp\_lower, hγ\_upper]}.\end{proof}
 
